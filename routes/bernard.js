@@ -1,4 +1,5 @@
-// This is the endpoint that I use for the contact form on my personal website because I didn't want to spend extra money on another mailgun domain. You can disregard this as it has nothing to do with NanaImg.
+/* This is the endpoint that I use for the contact form on my personal website because I didn't want to spend extra m
+money on another mailgun domain. You can disregard this as it has nothing to do with NanaImg. */
 
 
 const express = require('express');

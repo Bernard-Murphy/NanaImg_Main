@@ -1,4 +1,10 @@
-// This middleware will check the user session to see if the user is logged in and authorized to do things that verified users, admins, and/or moderators are allowed to do on the website. If the user is not logged in, he or she will be redirected to the login page. If they are logged in but banned or rejected, they will be redirected to their respective pages. If they are logged in and are either verified, a moderator, or an administrator, they will be sent on their way.
+
+
+/* This middleware will check the user session to see if the user is logged in and authorized to do things that 
+verified users, admins, and/or moderators are allowed to do on the website. If the user is not logged in, he or 
+she will be redirected to the login page. If they are logged in but banned or rejected, they will be redirected to 
+their respective pages. If they are logged in and are either verified, a moderator, or an administrator, they will be 
+sent on their way. */
 
 function auth(req, res, next){
     if (req.session.userInfo){

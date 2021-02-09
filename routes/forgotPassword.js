@@ -35,7 +35,10 @@ router.post('/', async (req, res) => {
             })
         } else {
 
-            // Pulls a user from the database given the username and email they provided. If the user exists, a password reset request is entered into the database and an email is generated with a link to the request. A uuid previously generated is used to generate the password reset url. Mailgun is used to send the reset email.
+            /* Pulls a user from the database given the username and email they provided. If the user exists, a 
+            password reset request is entered into the database and an email is generated with a link to the request. A 
+            uuid previously generated is used to generate the password reset url. Mailgun is used to send the reset 
+            email. */
 
             let userCheck = await db.getImg(`select uuid, user_id from users where username = '${username}' and email = '${req.body.email}'`);
             if (userCheck.length){

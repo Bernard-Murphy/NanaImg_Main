@@ -8,7 +8,8 @@ const chadminAuth = require('../db/chadminAuth');
 router.get('/unapproved', chadminAuth, async (req, res) => {
     try {
 
-        // Obtains a list of the last 50 people who have registered but whose registrations have not yet been processed. 
+        /* Obtains a list of the last 50 people who have registered but whose registrations have not yet been 
+        processed. */
 
         const sql = `select * from users where registration_approved = 0 and type != 'rejected' limit 50`;
         const registry = await db.getImg(sql);
@@ -42,7 +43,8 @@ router.get('/', chadminAuth, async (req, res) => {
 router.post('/:id', chadminAuth, async (req, res) => {
     try {
         
-        // This is the endpoint that gets hit when an admin updates the properties of a user. An admin can update a user's role, email address, or comments on their account.
+        /* This is the endpoint that gets hit when an admin updates the properties of a user. An admin can update a 
+        user's role, email address, or comments on their account. */
 
         let badge = null
         let email = req.body.email;

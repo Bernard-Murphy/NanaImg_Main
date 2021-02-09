@@ -1,5 +1,5 @@
-// Used when rendering image pages that have users with badges. This will determine the font-color of their names depending on which badge they have.
-
+/* Used when rendering image pages that have users with badges. This will determine the font-color of their names 
+depending on which badge they have. */
 function getBadgeColor(badge){
     if (badge === 'https://nanaimg.net/assets/chadminmel.png'){
         return 'rgb(193, 150, 0)'

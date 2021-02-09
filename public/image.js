@@ -10,7 +10,10 @@ function isANumber(str) {
   }
 
 
-// onaCopy and regCopy are used to copy embed links and direct links to users' clipboards, respectively. The way it works is there are hidden input fields on the page that contain these links. When the user clicks one of these "copy link" buttons, the dom will quickly unhide these inputs, then select and copy these links from the inputs, then hide the inputs again. The user is not able to see these inputs, but they will be copied to his or her clipboard.
+/* onaCopy and regCopy are used to copy embed links and direct links to users' clipboards, respectively. The way 
+it works is there are hidden input fields on the page that contain these links. When the user clicks one of these 
+"copy link" buttons, the dom will quickly unhide these inputs, then select and copy these links from the inputs, 
+then hide the inputs again. The user is not able to see these inputs, but they will be copied to his or her clipboard. */
 
 function onaCopy(){
     const code = document.getElementById('input-ona-embed');
@@ -34,9 +37,14 @@ function regCopy(){
     tooltip.setAttribute('data-tooltip', 'direct link copied')
 }
 
-// getPosts grabs all of the elements with the class .comment-numbers, which are the ids on each of the comments. It then adds each of these elements to the previously initialized "posts" array from line 4. It then adds an event listener for each of these id elements when clicked: 
+/* getPosts grabs all of the elements with the class .comment-numbers, which are the ids on each of the comments.
+It then adds each of these elements to the previously initialized "posts" array from line 4. It then adds an event
+listener for each of these id elements when clicked: 
 
-// First, it checks to see if the comment form is expanded. If it is, it does nothing because the comment form (located in another file) already knows how to handle the user clicking the ids. If the comment form is not expanded, it opens the comment form by simulating a click on the "add a comment" button. It then adds the ID to the hidden paragraph with the id #read-p, which the form knows to read when it opens up and add to the textbox.
+First, it checks to see if the comment form is expanded. If it is, it does nothing because the comment form 
+(located in another file) already knows how to handle the user clicking the ids. If the comment form is not expanded, 
+it opens the comment form by simulating a click on the "add a comment" button. It then adds the ID to the hidden 
+paragraph with the id #read-p, which the form knows to read when it opens up and add to the textbox. */
 
 function getPosts(){
     let postNums = document.getElementsByClassName('comment-numbers');
@@ -58,11 +66,14 @@ function getPosts(){
 
 getPosts();
 
-// parsePosts parses through all of the comments on an image, bolds and changes the color of quoted comments, adds anchor tags for users to navigate to quoted comments, adds mouse hover event listeners to show previews of quoted comments, and adds a "replies" section to any comments that have replies.
+/* parsePosts parses through all of the comments on an image, bolds and changes the color of quoted comments, adds 
+anchor tags for users to navigate to quoted comments, adds mouse hover event listeners to show previews of quoted 
+comments, and adds a "replies" section to any comments that have replies. */
 
 function parsePosts(){
 
-    // Grabs all of the comment text from each of the comments, grabs all of the comment numbers, and initializes empty arrays for comment text, comment numbers, comments, and comments with quotes (replies)
+    /* Grabs all of the comment text from each of the comments, grabs all of the comment numbers, and initializes 
+    empty arrays for comment text, comment numbers, comments, and comments with quotes (replies) */
 
     let comments = document.getElementsByClassName("comment-text");
     let commentText = [];
@@ -71,7 +82,8 @@ function parsePosts(){
     let allComs = [];
     let comsWithQuotes = [];
 
-    // Grabs all of the comments from allComments, removes their number signs, then pushes them into allComs. Also pushes the comment text from comments into the array commentText.
+    /* Grabs all of the comments from allComments, removes their number signs, then pushes them into allComs. Also 
+    pushes the comment text from comments into the array commentText. */
 
     for (let p = 0; p < allComments.length; p++){
         allComs.push(allComments[p].textContent.split('#')[1]);
@@ -80,7 +92,10 @@ function parsePosts(){
         commentText.push(comments[i]);
     }
 
-    // Goes through each comment and checks to see if there are any comments being quoted by checking the length of each comment when it is split by the double numbers sign (##). If it is greater than one, it creates an array with all the sections of the comment without the double numbers signs, and initializes three empty arrays: quoteNums, hrefs, and justNums. 
+    /* Goes through each comment and checks to see if there are any comments being quoted by checking the length of 
+    each comment when it is split by the double numbers sign (##). If it is greater than one, it creates an array with 
+    all the sections of the comment without the double numbers signs, and initializes three empty arrays: quoteNums, 
+    hrefs, and justNums. */
 
     for (let i = 0; i < commentText.length; i++){
         if (commentText[i].textContent.split('##').length > 1){
@@ -89,7 +104,11 @@ function parsePosts(){
             let hrefs = [];
             let justNums = [];
 
-            // Starting with index 1 (because the first will always be either an empty string or text before the first double numbers sign), each section of the splitPost array is evaluated. Arrays newJust, newHref, and newNum are initialized Eventually we want a number, a number preceeded by #c, and a number preceeded by ## - for use later. potNum splits the evaluated section into individual letters. still is set to true, and index set to 0 in order to be used to terminate the while loop later. 
+            /* Starting with index 1 (because the first will always be either an empty string or text before the 
+                first double numbers sign), each section of the splitPost array is evaluated. Arrays newJust, newHref, 
+                and newNum are initialized Eventually we want a number, a number preceeded by #c, and a number preceeded 
+                by ## - for use later. potNum splits the evaluated section into individual letters. still is set to true, 
+                and index set to 0 in order to be used to terminate the while loop later. */
 
             for (j = 1; j < splitPost.length; j++){
                 let newJust = [];
@@ -99,7 +118,10 @@ function parsePosts(){
                 let still = true;
                 let index = 0
 
-                // Goes through each individual value in the potNum array. If the value is a number, it gets pushed to each of the arrays (newJust, newHref, newNum), then increments the index of potNum to be evaluated. Once it hits a value that is not a number, the loop terminates. Once the loop is finished, newNum, newHref, and newJust are joined and pushed to quoteNums, hrefs, and justNums, respectively.
+                /* Goes through each individual value in the potNum array. If the value is a number, it gets pushed to 
+                each of the arrays (newJust, newHref, newNum), then increments the index of potNum to be evaluated. Once 
+                it hits a value that is not a number, the loop terminates. Once the loop is finished, newNum, newHref, and 
+                newJust are joined and pushed to quoteNums, hrefs, and justNums, respectively. */
 
                 while (still === true){
                     if (index > potNum.length - 1){
@@ -118,7 +140,8 @@ function parsePosts(){
                 hrefs.push(newHref.join(''));
             }
 
-            // After each section of the comment is evaluated, duplicates are removed and the contents of justNums is pushed to allNums and comsWithQuotes - in order to add replies section to those comments later. 
+            /* After each section of the comment is evaluated, duplicates are removed and the contents of justNums is pushed 
+            to allNums and comsWithQuotes - in order to add replies section to those comments later. */
 
             quoteNums = [...new Set(quoteNums)];
             hrefs = [...new Set(hrefs)];
@@ -128,24 +151,33 @@ function parsePosts(){
                 comsWithQuotes.push([allComs[i], num]);
             })
 
-            // In this next step we go through each comment and add the bold red font to all of the quotes, along with a tags that redirect the user to the comments that are being quoted, and add classnames to be used later when we add event listeners to each of them.
+            /* In this next step we go through each comment and add the bold red font to all of the quotes, along with 
+            a tags that redirect the user to the comments that are being quoted, and add classnames to be used later 
+            when we add event listeners to each of them.*/
 
-            // First initialize newPost, which is just the text of the comment. Then, go through the quoteNums array. As a reminder, each element in the quoteNums array is two number signs followed by a number, the format that users use to quote each other. For each element, newPost is split by that string. If it has a length greater than one, it means that quote is contained in the comment and will be processed. 
+            /* First initialize newPost, which is just the text of the comment. Then, go through the quoteNums array. 
+            As a reminder, each element in the quoteNums array is two number signs followed by a number, the format 
+            that users use to quote each other. For each element, newPost is split by that string. If it has a length 
+            greater than one, it means that quote is contained in the comment and will be processed. */
 
             let newPost = commentText[i].textContent;
             for (let k = 0; k < quoteNums.length; k++){
                 let appendedPost = newPost.split(quoteNums[k]);
 
-                // Checks if the quoted comment is in the same comment section, otherwise it gets the class .another-thread
+                /* Checks if the quoted comment is in the same comment section, otherwise it gets the class .
+                another-thread */
 
                 if (allComs.indexOf(justNums[k]) !== -1){
 
-                    // If the length is greater than two, it means that the same comment is being quoted more than once.
+                    /* If the length is greater than two, it means that the same comment is being quoted more than 
+                    once. */
 
                     if (appendedPost.length > 2){
                         for (let l = 1; l < appendedPost.length; l++){
 
-                            // This prevents the code from breaking when one number is a continuation of another number. For instance, someone may quote ##1, ##10, and ##100 and they will be treated differently.
+                            /* This prevents the code from breaking when one number is a continuation of another 
+                            number. For instance, someone may quote ##1, ##10, and ##100 and they will be treated 
+                            differently. */
 
                             if (isANumber(appendedPost[l].split('')[0]) === false){
                                 appendedPost[l]= `<p class="post-quotes h${justNums[k]}"><a class="post-quotes" href='${hrefs[k]}'>##</a>${justNums[k]}</p> ${appendedPost[l]}`;
@@ -198,20 +230,28 @@ function parsePosts(){
         }
     }
 
-    // This next section adds event listeners to all of the comment quotes so that when you hover over them, they show a preview of the comments that they are quoting. 
+    /* This next section adds event listeners to all of the comment quotes so that when you hover over them, they show 
+    a preview of the comments that they are quoting. */
 
     allNums = [...new Set(allNums)];
     for (let n = 0; n < allNums.length; n++){
         let allQuotes = document.getElementsByClassName(`h${allNums[n]}`);
 
-        // For every quote element on a comment, when a user hovers over it, there will be a check to see if an element exists on the page with the class "pop-up". If not, it will create a new pop-up div using information that it draws from the comment that it is quoting. The location of the pop-up will depend upon where the user's cursor is located at the time of triggering the event. The pop-up's origin is in the top-left, and shows up slightly below and to the right of the mouse. If the mouse is too far to the right of the page that the pop up would shift off the screen, it is shifted to the left. If the mouse is too far towards the bottom of the page that it would go off the screen, it is shifted upwards.
+        /* For every quote element on a comment, when a user hovers over it, there will be a check to see if an 
+        element exists on the page with the class "pop-up". If not, it will create a new pop-up div using information 
+        that it draws from the comment that it is quoting. The location of the pop-up will depend upon where the 
+        user's cursor is located at the time of triggering the event. The pop-up's origin is in the top-left, and 
+        shows up slightly below and to the right of the mouse. If the mouse is too far to the right of the page that 
+        the pop up would shift off the screen, it is shifted to the left. If the mouse is too far towards the bottom 
+        of the page that it would go off the screen, it is shifted upwards. */
 
         for (let o = 0; o < allQuotes.length; o++){
             allQuotes[o].addEventListener('mouseover', (e) => {
                 let check = document.querySelector('.pop-up');
                 if (check === null){
                     
-                    // This if/else checks whether the quoted comment's author has a badge or an id. Otherwise the two blocks of code do pretty much the same thing. 
+                    /* This if/else checks whether the quoted comment's author has a badge or an id. Otherwise the two 
+                    blocks of code do pretty much the same thing. */
 
                     if (document.querySelector(`#id${allNums[n]}`) === null){
                         let commentDiv = document.createElement('div');
@@ -316,7 +356,9 @@ function parsePosts(){
         }
     }
 
-    // This section adds a pop-up with the same properties as the pop-ups in the previous section, but these are exclusive to comments that are quoted in different comment sections (and thus on different pages). The comment previews will simply say "This comment is in another thread". 
+    /* This section adds a pop-up with the same properties as the pop-ups in the previous section, but these are 
+    exclusive to comments that are quoted in different comment sections (and thus on different pages). The comment 
+    previews will simply say "This comment is in another thread". */
 
     let foreignQs = document.getElementsByClassName('another-thread');
     for (let o = 0; o < foreignQs.length; o++){
@@ -347,9 +389,15 @@ function parsePosts(){
         })            
     }
 
-    // This section adds a replies section to each comment that has replies, and fills it with links to those replies along with mouseover previews similar to the ones in the previous section. It does this by looping through the comsWithQuotes array, which is an array of arrays with length two. The first element of each sub-array is the number of the comment making the reply, while the second is the number of the comment being replied to. Duplicate replies have been removed. 
+    /* This section adds a replies section to each comment that has replies, and fills it with links to those replies 
+    along with mouseover previews similar to the ones in the previous section. It does this by looping through the 
+    comsWithQuotes array, which is an array of arrays with length two. The first element of each sub-array is the 
+    number of the comment making the reply, while the second is the number of the comment being replied to. Duplicate 
+    replies have been removed. */
     
-    // For each comment that has replies, the replies section is unhidden, and for each comment that replied to it, it is appended below the comment with the same bold red text of the double numbers sign followed by the comment number. The same mouseover/mouseleave event listeners are added as with regular comments.
+    /* For each comment that has replies, the replies section is unhidden, and for each comment that replied to it, it 
+    is appended below the comment with the same bold red text of the double numbers sign followed by the comment 
+    number. The same mouseover/mouseleave event listeners are added as with regular comments. */
 
     comsWithQuotes.forEach((com) => {
 
@@ -471,7 +519,13 @@ function parsePosts(){
 
 parsePosts();
 
-// This function adds functionality to the report button for the main image. First, it grabs the image ID and stores it in a variable called "id". Then, it adds an event listener to the report button that will toggle the reporting options when clicked. Then, it adds event listeners to the report options spam, porn, and other, respectively. If the user selects the porn or spam buttons, a post request will be made to the /reports/posts/:id endpoint, and the report section will disappear. If the user selects "other", a textbox will pop up that allows the user to enter in a custom report up to 200 characters. When the user clicks "submit", their custom report is sent in a post request and the report section is removed.
+/* This function adds functionality to the report button for the main image. First, it grabs the image ID and stores 
+it in a variable called "id". Then, it adds an event listener to the report button that will toggle the reporting 
+options when clicked. Then, it adds event listeners to the report options spam, porn, and other, respectively. If the 
+user selects the porn or spam buttons, a post request will be made to the /reports/posts/:id endpoint, and the report 
+section will disappear. If the user selects "other", a textbox will pop up that allows the user to enter in a custom 
+report up to 200 characters. When the user clicks "submit", their custom report is sent in a post request and the 
+report section is removed. */
 
 function reportButtonsPosts(){
     let id = document.querySelector('#h2-image-id').textContent.split('#')[1];
@@ -615,7 +669,8 @@ function reportButtonsPosts(){
 
 reportButtonsPosts();
 
-// This function adds the ability for a moderator or administrator to remove images. The functionality is exactly the same as the report button, except the user is redirected to the removed image after it is removed.
+/* This function adds the ability for a moderator or administrator to remove images. The functionality is exactly the 
+same as the report button, except the user is redirected to the removed image after it is removed. */
 
 function removeButtonsPosts(){
     let id = document.querySelector('#h2-image-id').textContent.split('#')[1];
@@ -713,7 +768,8 @@ function removeButtonsPosts(){
 
 removeButtonsPosts();
 
-// This function allows admins and moderators to remove manifestos. It functions exactly the same as removing images, except for there is no option to remove for porn.
+/* This function allows admins and moderators to remove manifestos. It functions exactly the same as removing images, 
+except for there is no option to remove for porn. */
 
 function removeButtonsManifesto(){
     let id = document.querySelector('#h2-image-id').textContent.split('#')[1];
@@ -796,7 +852,10 @@ function removeButtonsManifesto(){
 
 removeButtonsManifesto();
 
-// This function allows admins and moderators to remove comments. It starts by initializing an array with the ids of all of the comments. Then, for each element in the array, it adds an event listener to each of the remove buttons which displays the two remove options - spam and other. The rest works exactly the same as the remove buttons for the manifesto.
+/* This function allows admins and moderators to remove comments. It starts by initializing an array with the ids of 
+all of the comments. Then, for each element in the array, it adds an event listener to each of the remove buttons 
+which displays the two remove options - spam and other. The rest works exactly the same as the remove buttons for the 
+manifesto. */
 
 function removeButtonsComments(){
     let postNumbers = posts.map((post) => {
@@ -895,7 +954,9 @@ function removeButtonsComments(){
 
 removeButtonsComments();
 
-// This function adds a restore button to all of the removed comments. Similar to the report button, the user clicks "restore", then can either confirm or cancel. If the user clicks "confirm", the restore button disappears and the comment is restored.
+/* This function adds a restore button to all of the removed comments. Similar to the report button, the user clicks 
+"restore", then can either confirm or cancel. If the user clicks "confirm", the restore button disappears and the 
+comment is restored. */
 
 function restoreButtonsComments(){
     let postNumbers = posts.map((post) => {
@@ -935,7 +996,9 @@ function restoreButtonsComments(){
 
 restoreButtonsComments();
 
-// This function works exactly the same as restoreButtonsComments, except for the fact that after the user confirms the restoration of the manifesto, the page reloads and the restore button is replaced with report and remove buttons.
+/* This function works exactly the same as restoreButtonsComments, except for the fact that after the user confirms 
+the restoration of the manifesto, the page reloads and the restore button is replaced with report and remove buttons. 
+*/
 
 function restoreButtonsManifesto(){
     let id = document.querySelector('#h2-image-id').textContent.split('#')[1];

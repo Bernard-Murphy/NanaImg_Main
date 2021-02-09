@@ -21,11 +21,21 @@ function isNum(str) {
 router.post('/verified', commentAuth, async (req, res) => {
     try {
 
-        // This endpoint is used when a verified user, a moderator, or an administrator posts a comment. After being authorized using the commentAuth middleware, the comment is scrutinized to make sure that it conforms to all of the requirements. Then, it is determined whether the user selected an avatar. If the user selected an avatar, a query is sent to the database to see if an image with the avatar id exists. If it does, the variable avatar_url will be set to the url of the image with that avatar id. 
+        /* This endpoint is used when a verified user, a moderator, or an administrator posts a comment. After being 
+        authorized using the commentAuth middleware, the comment is scrutinized to make sure that it conforms to all of 
+        the requirements. Then, it is determined whether the user selected an avatar. If the user selected an avatar, a 
+        query is sent to the database to see if an image with the avatar id exists. If it does, the variable avatar_url 
+        will be set to the url of the image with that avatar id. 
 
-        // After that, the user session is checked to see whether the user has been assigned a post ID (even if the user is using a badge). If none exists, the user is assigned one along with a color. The variables name, badge, and moment are initialized and correspond to the user's name, badge, and time of posting the comment, respectively. After this, problematic characters such as back slashes are removed, and single quotes have back slashes appended to the beginning in order to prevent the MySQL database from throwing an error when the comment is posted.
+        After that, the user session is checked to see whether the user has been assigned a post ID (even if the user 
+        is using a badge). If none exists, the user is assigned one along with a color. The variables name, badge, 
+        and moment are initialized and correspond to the user's name, badge, and time of posting the comment, 
+        respectively. After this, problematic characters such as back slashes are removed, and single quotes have 
+        back slashes appended to the beginning in order to prevent the MySQL database from throwing an error when 
+        the comment is posted.
 
-        // After all that, the comment is sent to the database. If there are no errors, the image that the comment was added to is updated by incrementing the comment count, and the user is sent the insertID.
+        After all that, the comment is sent to the database. If there are no errors, the image that the comment was 
+        added to is updated by incrementing the comment count, and the user is sent the insertID. */
 
         if (req.body.name.length > 30) throw "Username is too long";
         if (req.body.commentText.length > 10000) throw "Comment is too long";
@@ -96,7 +106,9 @@ router.post('/verified', commentAuth, async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         
-        // This is the endpoint for users who post comments when they are not logged in. The first thing it does is it sends the user's captcha key to Google reCaptcha to ensure that it is valid. After it does that, everything else is identical to the /verified endpoint minus the badge assignment.
+        /* This is the endpoint for users who post comments when they are not logged in. The first thing it does is it 
+        sends the user's captcha key to Google reCaptcha to ensure that it is valid. After it does that, everything 
+        else is identical to the /verified endpoint minus the badge assignment. */
 
         const captchaKey = process.env.CAPTCHA_KEY;
         const captchaVerifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${captchaKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
@@ -171,7 +183,10 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
 
-        // This endpoint allows users to be redirected to any comment they want by simply going to nanaimg.net/comments/(the comment id) - even if they have no idea what image the comment is on. The way it works is it makes a query to the comment database and determines which image the comment is on, then redirects the user to that image where the comment is located.
+        /* This endpoint allows users to be redirected to any comment they want by simply going to nanaimg.net/comments/
+        (the comment id) - even if they have no idea what image the comment is on. The way it works is it makes a query 
+        to the comment database and determines which image the comment is on, then redirects the user to that image 
+        where the comment is located. */
 
         if (isNum(req.params.id) === true){
             const sql = `select image_id from comments where comment_id = ${req.params.id}`

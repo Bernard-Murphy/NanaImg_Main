@@ -1,3 +1,5 @@
+// This is a router
+
 const home = require('./routes/home');
 const login = require('./routes/login');
 const browse = require('./routes/browse');

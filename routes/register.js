@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.post('/deny/:id', chadminAuth, async (req, res) => {
     try {
 
-        // Rejects a users registration. After this, when a user logs in, they will be served a page that tells them that their application has been rejected.
+        /* Rejects a users registration. After this, when a user logs in, they will be served a page that tells them that their application has been rejected. */
 
         const sql = `update users set type = 'rejected' where user_id = '${req.params.id}'`;
         await db.getImg(sql);
@@ -36,7 +36,8 @@ router.post('/deny/:id', chadminAuth, async (req, res) => {
 router.post('/approve/:id', chadminAuth, async (req, res) => {
     try {
 
-        // When a user is approved by an administrator, his or her account will be marked as such in the database. This sets their badge and their role in the database.
+        /* When a user is approved by an administrator, his or her account will be marked as such in the database. This 
+        sets their badge and their role in the database. */
 
         let role = req.body.role;
         let badge = null;
@@ -62,7 +63,11 @@ router.post('/approve/:id', chadminAuth, async (req, res) => {
 router.post('/', async (req, res) => {
     try {
 
-        // This is the endpoint that gets hit when a user submits a new registration. This first block ensures that the user's name, password, and email are within all of the acceptable parameters. Names must be between 1 and 30 characters long, emails must be valid emails with a maximum of 128 characters, passwords must match and can be a maximum of 256 characters, and backslashes and apostrophes are not allowed in either usernames, passwords, or emails.
+        /* This is the endpoint that gets hit when a user submits a new registration. This first block ensures that the 
+        user's name, password, and email are within all of the acceptable parameters. Names must be between 1 and 30 
+        characters long, emails must be valid emails with a maximum of 128 characters, passwords must match and can be 
+        a maximum of 256 characters, and backslashes and apostrophes are not allowed in either usernames, passwords, or 
+        emails. */
 
         if (req.body.name.length > 30) throw "Your username is too long (max: 30 characters)";
         if (req.body.password1 !== req.body.password2) throw "Your passwords do not match";
@@ -86,11 +91,15 @@ router.post('/', async (req, res) => {
         const check2 = await db.getImg(sql3);
         if (check2.length > 0) throw "User already exists with that email";
         
-        // The uuid generated here is used when the user is uploading images. Because the image server and the main server (this one) are separate, I cannot use session cookies to verify a user's credentials. So instead I use this uuid, which gets refreshed every time a user uploads a new image (so that malicious users cannot use it for themselves).
+        /* The uuid generated here is used when the user is uploading images. Because the image server and the main 
+        server (this one) are separate, I cannot use session cookies to verify a user's credentials. So instead I use 
+        this uuid, which gets refreshed every time a user uploads a new image (so that malicious users cannot use it 
+        for themselves). */
 
         const verid = uuid.v4();
 
-        // Password is hashed and salted, the date is generated, and the user is added to the database. They must be approved before their account has full privileges.
+        /* Password is hashed and salted, the date is generated, and the user is added to the database. They must be 
+        approved before their account has full privileges. */
 
         const passHash = await bcrypt.hash(req.body.password1, 8);
         const date = getDate().date;

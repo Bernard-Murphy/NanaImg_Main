@@ -1,4 +1,5 @@
-// Function that saves a small amount of typing when creating menus that allow the user to select which badge they want displayed when they post images or comments.
+/* Function that saves a small amount of typing when creating menus that allow the user to select which badge they
+want displayed when they post images or comments. */
 
 function pickBadge(pick){
     if (pick === '0'){

@@ -15,7 +15,10 @@ let messageP = document.querySelector('#p-forgot-password-message');
 let errorP = document.querySelector('#p-forgot-password-error');
 
 function submit(){
-    // This function runs when the user submits the "forgot password" form. It grabs the username and email address, then checks to see if they are valid (though not necessarily a match in the system yet). 
+
+    /* This function runs when the user submits the "forgot password" form. It grabs the username and email address,
+     then checks to see if they are valid (though not necessarily a match in the system yet). */
+
     let username = document.querySelector('#input-forgot-password-username').value;
     let email = document.querySelector('#input-forgot-password-email').value;
     if (checkEmail(email) === false){
@@ -29,7 +32,10 @@ function submit(){
             errorP.classList.toggle('hide');
         }
     } else {
-        // Form is submitted to the server. If everything is good server-side, the user is redirected to another page giving them instructions on how to reset their password. If unsuccessful, an error is displayed, either the one sent from the server or a generic "an error occurred" if none can be found.
+
+        /* Form is submitted to the server. If everything is good server-side, the user is redirected to another page 
+        giving them instructions on how to reset their password. If unsuccessful, an error is displayed, either the one 
+        sent from the server or a generic "an error occurred" if none can be found. */
         let fd = {
             username: username,
             email: email
@@ -42,7 +48,6 @@ function submit(){
         }
         messageP.textContent = "Submitting..."
         axios.post('https://nanaimg.net/forgotPassword', fd)
-        // axios.post('http://localhost:1000/forgotPassword', fd)
             .then(res => {
                 let data = res.data;
                 if(data.error){

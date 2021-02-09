@@ -9,7 +9,9 @@ const router = express.Router();
 router.get('/:id', async (req, res) => {
     try {
 
-        // This serves the password reset page. The :id parameter is a randomly generated uuid, and the url would have been emailed to the person who requested the reset. If the reset request is valid, the user is served the reset page.
+        /* This serves the password reset page. The :id parameter is a randomly generated uuid, and the url would have 
+        been emailed to the person who requested the reset. If the reset request is valid, the user is served the reset 
+        page. */
 
         let user = await db.getImg(`select valid from password_resets where uuid = '${req.params.id}'`);
         if (user.length){
@@ -48,7 +50,8 @@ router.post('/:id', async (req, res) => {
                 })
             } else {
 
-                // Resets the user's uuid, hashes and salts the password, invalidates the reset request, then adds the new password and uuid to the user's entry in the users table. 
+                /* Resets the user's uuid, hashes and salts the password, invalidates the reset request, then adds the 
+                new password and uuid to the user's entry in the users table. */
 
                 const newUId = uuid.v4();
                 const passHash = await bcrypt.hash(newPass, 8);

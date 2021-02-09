@@ -17,7 +17,7 @@ function isNum(str) {
 router.post('/posts/:id', async (req, res) => {
     try {
 
-        // This endpoint is his when someone reports an image. If the image id is not a number, it throws an error. If 
+        // This endpoint is his when someone reports an image. If the image id is not a number, it throws an error.  
         if (isNum(req.params.id) === false) throw "An error occurred"
         const report = req.body;
 
@@ -120,7 +120,8 @@ router.post('/comments/:id', async (req, res) => {
 router.get('/:off', reportAuth, async (req, res) => {
     try {
 
-        // :off is the page number of reports in the report queue. There are 50 reports per page, so :off is used to determine the offset when querying the database for reports.
+        /* :off is the page number of reports in the report queue. There are 50 reports per page, so :off is used to 
+        determine the offset when querying the database for reports. */
 
         const offset = 50 * req.params.off - 50;
         const sql = `select * from report_queue order by report_id desc limit 50 offset ${offset}`;
@@ -172,7 +173,10 @@ router.delete('/comments/:id', reportAuth, async (req, res) => {
 router.post('/comment/remove/:id', reportAuth, async (req, res) => {
     try {
 
-        // This endpoint is used to remove a comment. The variable "reason" is set to the reason given in the request body, then parsed to make sure that backslashes are put before any apostrophes, so that no errors are thrown when it is added to the database. The comment itself is not deleted from the database, rather it is flagged as removed so that only admins and moderators can see it.
+        /* This endpoint is used to remove a comment. The variable "reason" is set to the reason given in the request 
+        body, then parsed to make sure that backslashes are put before any apostrophes, so that no errors are thrown 
+        when it is added to the database. The comment itself is not deleted from the database, rather it is flagged as 
+        removed so that only admins and moderators can see it. */
 
         let reason = req.body.reason;
         if (reason.split("'").length > 1){
@@ -185,7 +189,8 @@ router.post('/comment/remove/:id', reportAuth, async (req, res) => {
         const sql1 = `update comments set removed = '1', removed_reason = '${reason}' where comment_id = '${req.params.id}'`;
         await db.getImg(sql1);
 
-        // The report itself is removed from the database, and a log of the moderator action is inserted into the mod logs table.
+        /* The report itself is removed from the database, and a log of the moderator action is inserted into the mod 
+        logs table. */
 
         const sql2 = `delete from report_queue where post_type = 'comment' and post_number = ${req.params.id}`;
         await db.getImg(sql2);
@@ -223,7 +228,8 @@ router.post('/comment/:id', reportAuth, async (req, res) => {
 router.post('/manifesto/restore/:id', reportAuth, async (req, res) => {
     try {
 
-        // Restores a removed manifesto and adds a log to the action logs showing that it was restored, and who restored it.
+        /* Restores a removed manifesto and adds a log to the action logs showing that it was restored, and who 
+        restored it. */
 
         const sql1 = `update images set manifesto_removed = '0' where image_id = '${req.params.id}'`;
         await db.getImg(sql1);

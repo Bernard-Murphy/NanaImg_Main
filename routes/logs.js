@@ -1,4 +1,5 @@
-// These endpoints all have to do with the moderator action logs which are generated any time a moderator or admin removes or restores anything. Only admins are able to see this.
+/* These endpoints all have to do with the moderator action logs which are generated any time a moderator or admin 
+removes or restores anything. Only admins are able to see this. */
 
 const express = require('express');
 const db = require('../db');
@@ -8,8 +9,7 @@ const router = express.Router();
 
 router.get('/', chadminAuth, async (req, res) => {
     try{
-
-        // This is the endpoint that is requested when the user goes to the mod logs page. It simply brings up the 200 most recent actions in descending order.
+        /* This is the endpoint that is requested when the user goes to the mod logs page. It simply brings up the 200 most recent actions in descending order. */
 
         sql = 'select * from mod_logs order by action_id desc limit 200';
         const logs = await db.getImg(sql);

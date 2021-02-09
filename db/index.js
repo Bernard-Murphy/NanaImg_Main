@@ -19,8 +19,9 @@ nana.connect((err) => {
 
 let db = {};
 
-// Most of these are redundant as I just decided to generate the SQL statements in their respective routes, then use one middleware (getImg) for executing any db calls. Creates a new promise that calls the database using whatever SQL statement is given, then returns the result if successfull and rejects the promise if there is an error.
-
+/* Most of these are redundant as I just decided to generate the SQL statements in their respective routes, then 
+use one middleware (getImg) for executing any db calls. Creates a new promise that calls the database using whatever 
+SQL statement is given, then returns the result if successfull and rejects the promise if there is an error. */
 db.img = (img) => {
     return new Promise((resolve, reject) => {
         nana.query(`select * from images where image_id = '${img}';`, (err, result) => {

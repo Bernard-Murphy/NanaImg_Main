@@ -1,3 +1,5 @@
+// This is the main server
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,23 +10,14 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const db = require('./db');
 const router = require('./router');
-const util = require('util');
-const getDate = require('./db/getDate');
 const MySQLStore = require('express-mysql-session')(session);
 const getId = require('./db/getId');
 const pickColor = require('./db/pickColor');
-const imagemin = require('imagemin');
-const imageminGifsicle = require('imagemin-gifsicle');
-const imageminJpegtran = require('imagemin-jpegtran');
-const imageminPngquant = require('imagemin-pngquant');
-const imageSize = require('image-size');
-const sharp = require('sharp');
 const http = require('http');
 const https = require('https');
-const fs = require('fs');
-const axios = require('axios');
 
 
+/* This sets up Handlebars and defines all the helper functions. */ 
 const customHb = exphbs.create({
     defaultLayout: 'main',
     helpers: {
@@ -89,17 +82,17 @@ const customHb = exphbs.create({
     }
 })
 
+/* Initiate the Express server, set up dotenv, bodyparser, cors, the public directory, the Handlebars views */
 const server = express();
 dotenv.config();
-const PORT = process.env.PORT;
 server.use(bodyParser.json());
 server.use(cors())
 server.use(express.static(path.join(__dirname, '/public')));
 server.set('views', path.join(__dirname, 'views'));
 server.engine('handlebars', customHb.engine),
 server.set('view engine', 'handlebars');
-server.use(fileUpload());
 
+/* Sets up the user sessions and uses the MySQL database to store all of the session data */
 const sessionConfig = {
     name: process.env.SESS_NAME,
     secret: process.env.SECRET,
@@ -122,14 +115,13 @@ const sessionConfig = {
 
 
 server.use(session(sessionConfig));
-// server.use(function(req, res, next){
-//     console.log(req.port);
-//     next();
-// })
+
 server.use('/', router);
 
 server.post('/upload', async (req, res) => {
     try {
+
+        /* This endpoint is used by verified users, moderators, and administrators to upload images. Because the image server is separate from this main server, the sessions are different so the image server cannot simply look at the user's session cookie to determine whether they are authorized to bypass the reCaptcha requirement. Instead the user makes a request to this server, the server validates the user's permissions, then the server pulls that user's uuid from the database and sends it in the response. The user then makes the request to the image server with the uuid. The image server compares the uuid with the one in the db and uses it to verify that user. It (the image server) then generates a new uuid to replace the old one. This endpoint just goes through the basics and grabs the uuid if the user's session is valid. */
         let username = (req.body.name.length > 0) ? req.body.name : "Anonymous";
         let uid = '';
         let userId = '';
@@ -191,7 +183,7 @@ server.post('/upload', async (req, res) => {
 
 
 
-
+/* 404 page, then set up the http and https servers. On the actual Ubuntu machine that runs the server, I have NGINX installed which knows that requests on port 80 and port 443 for nanaimg.net are redirected to port 1000 and port 2000, respectively */
 server.use(function(req, res){
     res.status(404).render('notFound', {
         user: (req.session.userInfo) ? req.session.userInfo.user : 0

@@ -1,4 +1,5 @@
-// This function is used to get the current date in the format of dd-mm-yyyy @ hh:mm:ss UTC. The while loops are used to append zeroes to the beginning of any single digit values.
+/* This function is used to get the current date in the format of dd-mm-yyyy @ hh:mm:ss UTC. The while loops are used 
+    to append zeroes to the beginning of any single digit values. */
 
 function getDate(){
     let time = new Date();

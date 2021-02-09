@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const db = require('../db');
 
 
-// If the user is already logged in, they will be redirected to their dashboard. If not, they will be served the login page.
+/* If the user is already logged in, they will be redirected to their dashboard. If not, they will be served the login 
+page. */
 
 router.get('/', async (req, res) => {
     if (req.session.user){
@@ -17,7 +18,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
 
-        // This is the endpoint for users who are logging in using their credentials. A user's password hash, type, id, and badge are pulled from the database. Using Bcrypt's compareSync function, the user is validated and his or her session cookie is updated with all of their information.
+        /* This is the endpoint for users who are logging in using their credentials. A user's password hash, type, id, 
+        and badge are pulled from the database. Using Bcrypt's compareSync function, the user is validated and his or 
+        her session cookie is updated with all of their information. */
 
         const user = req.body.name;
         const pass = req.body.password;

@@ -32,7 +32,8 @@
 <p id="p-image-removed-reason">{{removedReason}}</p>
 {{/ifEquals}}
 
-{{! Gives information about the image - who posted it, when it was posted, its direct link. There are two tooltips that the user can see if they hover their mouse over the copy links. }}
+{{! Gives information about the image - who posted it, when it was posted, its direct link. There are two tooltips that 
+the user can see if they hover their mouse over the copy links. }}
 
 <div id="image-navigation">
 {{#if previous}}<a id="previous-anchor" href="/image/{{previous}}">Previous</a> {{/if}} {{#if next}}<a id="next-anchor" href="/image/{{next}}">Next</a> {{/if}}</div>
@@ -58,7 +59,8 @@
     </div>
     {{/if}}
 
-    {{! "access" is determined by whether or not the user is a mod or an admin. If they are either, they will have access to all of the mod buttons, such as the remove and restore buttons}}
+    {{! "access" is determined by whether or not the user is a mod or an admin. If they are either, they will have 
+    access to all of the mod buttons, such as the remove and restore buttons}}
     {{#ifEquals access true}}
     {{#ifEquals manifestoRemoved 1}}
     <div id="manifesto-div">

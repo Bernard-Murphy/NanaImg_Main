@@ -1,14 +1,19 @@
 // This script runs on the password reset page
 
 
-// Initializes the message and the error messages that the user can see when trying to reset his or her password, and grabs the DOM elements, messageP and errorP, which will contain these messages. It also grabs the uuid that was contained in the url that was emailed to the person trying to reset their password.
+/* Initializes the message and the error messages that the user can see when trying to reset his or her password, and 
+grabs the DOM elements, messageP and errorP, which will contain these messages. It also grabs the uuid that was 
+contained in the url that was emailed to the person trying to reset their password. */
 let message = '';
 let errorMessage = ''
 let messageP = document.querySelector('#p-forgot-password-message');
 let errorP = document.querySelector('#p-forgot-password-error');
 let uuid = window.location.href.split('/')[4];
 
-// This function runs when the user submits the password reset form. It performs a series of tests to make sure that the passwords match and are within the right parameters, then makes a POST request to the server to reset the user's password. If everything goes through, the user is redirected to their dashboard. If not, the appropriate error message is shown. 
+/* This function runs when the user submits the password reset form. It performs a series of tests to make sure that 
+the passwords match and are within the right parameters, then makes a POST request to the server to reset the user's 
+password. If everything goes through, the user is redirected to their dashboard. If not, the appropriate error message 
+is shown. */
 
 function submit(){
     let pass1 = document.querySelector('#input-new-password-1').value;

@@ -2,7 +2,8 @@ const express = require('express');
 const db = require('../db');
 const router = express.Router();
 
-// Serves the home page which has the image upload form on it. If the user is an admin, moderator, or verified, the auth variable will be set to true, which will allow the user to upload images without solving a reCaptcha challenge.
+/* Serves the home page which has the image upload form on it. If the user is an admin, moderator, or verified, the 
+auth variable will be set to true, which will allow the user to upload images without solving a reCaptcha challenge. */
 router.get('/', (req, res) => {
     let auth = false;
     if (req.session){

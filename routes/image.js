@@ -12,7 +12,9 @@ function isNum(str) {
 router.get('/:id', async (req, res) => {
     try {
 
-        // This endpoint is used to serve the main image pages that show the images with comments and view count and everything else. The first thing it does is it checks whether the user is verified. This will determine whether the user is served the reCaptcha challenge. 
+        /* This endpoint is used to serve the main image pages that show the images with comments and view count and 
+        everything else. The first thing it does is it checks whether the user is verified. This will determine whether 
+        the user is served the reCaptcha challenge. */
 
         let verified = false;
         if (req.session){
@@ -23,14 +25,17 @@ router.get('/:id', async (req, res) => {
             }
         }
 
-        // Selects the image that the user wants, as well as the IDs of the previous and next images which aren't removed, if they exist. These will be used for the "next" and "previous buttons at the top of the image page."
+        /* Selects the image that the user wants, as well as the IDs of the previous and next images which aren't 
+        removed, if they exist. These will be used for the "next" and "previous buttons at the top of the image page." 
+        */
 
         if (isNum(req.params.id)){
             let result = await db.getImg(`select * from images where image_id = ${req.params.id}`);
             let nextResult = await db.getImg(`select image_id from images where image_id > ${req.params.id} and removed = 0 order by image_id asc limit 1`);
             let prevResult = await db.getImg(`select image_id from images where image_id < ${req.params.id} and removed = 0 order by image_id desc limit 1`);
 
-            // The access variable is initialized false. If the user is an administrator or a moderator, it will be changed to true. This allows the user to remove and restore images, manifestos, and comments.
+            /* The access variable is initialized false. If the user is an administrator or a moderator, it will be 
+            changed to true. This allows the user to remove and restore images, manifestos, and comments. */
 
             let access = false;
             if (result.length){
@@ -42,7 +47,8 @@ router.get('/:id', async (req, res) => {
                     }
                 }
 
-                // If the image is removed and the user does not have access, they will be directed to a page telling them the image has been removed.
+                /* If the image is removed and the user does not have access, they will be directed to a page telling 
+                them the image has been removed. */
 
                 if (result[0].removed === 1 && access === false){
                     res.render('removed', {
@@ -50,7 +56,8 @@ router.get('/:id', async (req, res) => {
                     });
                 } else {
 
-                    // If the image is marked "NSFW" and the user has not yet confirmed that he or she is over the age of 18 and willing to see NSFW images, they will be redirected to the NSFW page.
+                    /* If the image is marked "NSFW" and the user has not yet confirmed that he or she is over the age 
+                    of 18 and willing to see NSFW images, they will be redirected to the NSFW page. */
 
                     if (result[0].nsfw === 1){
                         if (req.session.nsfw === false || req.session.nsfw === undefined){
@@ -58,7 +65,10 @@ router.get('/:id', async (req, res) => {
                             res.redirect('/nsfw');
                         } else {
 
-                            // Sets several variables which are properties of the image. user is the person who posted the image. manifesto is the text of the manifesto if there is one that is not removed. imgId is the image id. previous and next are the image ids of the previous and next images, respectively.
+                            /* Sets several variables which are properties of the image. user is the person who posted 
+                            the image. manifesto is the text of the manifesto if there is one that is not removed. 
+                            imgId is the image id. previous and next are the image ids of the previous and next images, 
+                            respectively. */
 
                             const user = result[0].user;
                             const manifesto = (result[0].manifesto === "null" || result[0].manifesto_removed === 1) ? 0 : result[0].manifesto;
@@ -66,7 +76,9 @@ router.get('/:id', async (req, res) => {
                             const previous = (prevResult.length === 0) ? 0 : prevResult[0].image_id;
                             const next = (nextResult.length === 0) ? 0 : nextResult[0].image_id;
 
-                            // Fetches all of the comments or only the comments that are not removed, depending upon whether the user has access to them. Then, updates the image by increasing its view count by one.
+                            /* Fetches all of the comments or only the comments that are not removed, depending upon 
+                            whether the user has access to them. Then, updates the image by increasing its view count 
+                            by one. */
 
                             let sqlAll = `select * from comments where image_id = ${imgId} and removed = '0' limit 200`;
                             if (access === true){
@@ -76,7 +88,9 @@ router.get('/:id', async (req, res) => {
                             const updateCountSql = `update images set views = views + 1 where image_id = ${req.params.id}`;
                             await db.getImg(updateCountSql);
 
-                            // If there are more than 200 comments on the image, commentExcess is set to true, which will add "previous" and "next" buttons in the comments section so that users can navigate through the comments.
+                            /* If there are more than 200 comments on the image, commentExcess is set to true, which 
+                            will add "previous" and "next" buttons in the comments section so that users can navigate 
+                            through the comments. */
 
                             let commentExcess = (result[0].comments > 200) ? true : false;
                             let nextComments = (result[0].comments > 200) ? 2 : 0;
@@ -179,7 +193,8 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/:com', async (req, res) => {
     try {
 
-        // This is similar to the /:id route, and is used for images that have several pages of comments (200 comments per page). The :com is the page number of the comments section.
+        /* This is similar to the /:id route, and is used for images that have several pages of comments (200 comments 
+        per page). The :com is the page number of the comments section. */
 
         let verified = false;
         if (req.session){
@@ -219,7 +234,8 @@ router.get('/:id/:com', async (req, res) => {
                             const next = (nextResult.length === 0) ? 0 : nextResult[0].image_id;
                             if (isNum(req.params.com)){
 
-                                // Calculates the offset for the comments to be pulled from the database depending on the comment page number.
+                                /* Calculates the offset for the comments to be pulled from the database depending on 
+                                the comment page number. */
 
                                 let offset = (req.params.com * 200) - 200;
                                 let sqlAll = `select * from comments where image_id = ${imgId} and removed = '0' limit 200 offset ${offset}`;
