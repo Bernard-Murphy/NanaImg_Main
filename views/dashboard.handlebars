@@ -1,0 +1,27 @@
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{user}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+
+<h1 id="h1-dash">Dashboard</h1>
+
+{{! Everyone can see user settings, mods can see the report queue, only admins can see the user registry, applicants, and action logs}}
+{{#if jannyAuths}}
+<button class="buttons-nsfw" onClick="window.location.href = '/dashboard/reports'">Report Queue</button>
+{{/if}}
+{{#if chadminAuths}}
+<button class="buttons-nsfw" onClick="window.location.href = '/dashboard/registry'">User Registry</button>
+<button class="buttons-nsfw" onClick="window.location.href = '/applicants'">Applicants</button>
+<button class="buttons-nsfw" onClick="window.location.href = '/dashboard/modlogs'">Action Logs</button>
+{{/if}}
+<button class="buttons-nsfw" onClick="window.location.href = '/dashboard/settings'">User Settings</button>

@@ -1,0 +1,62 @@
+{{! User settings. Import Axios for use in settings.js. Will be given a different list of items to choose based on a user's role.}}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script defer src="/settings.js"></script>
+
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{user}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+
+<a href="/dashboard" class="back-button-dashboard">&lt;&lt; Back</a>
+
+<h1 id="h1-user-settings">User Settings</h1>
+
+{{#ifEquals role 'Chadmin'}}
+<div id="div-settings">
+    <h2 id="h2-settings">Post as:</h2>
+    <input id="us-input-0" class="us-inputs" type="checkbox"/><label id="us-label-0" class="us-labels"><span style="color: rgb(193, 150, 0);">{{user}} <img src="https://nanaimg.net/assets/chadminmel.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-1" class="us-inputs" type="checkbox"/><label id="us-label-1" class="us-labels"><span style="color: rgb(34, 177, 76);">{{user}} <img src="https://nanaimg.net/assets/spaceedge.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-2" class="us-inputs" type="checkbox"/><label id="us-label-2" class="us-labels"><span style="color: rgb(0, 162, 232);">{{user}} <img src="https://nanaimg.net/assets/verifiedbadge.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-3" class="us-inputs" type="checkbox"/><label id="us-label-3" class="us-labels">Anonymous</label>
+    <div id="us-buttons-div">
+        <button id="us-submit-button" class="us-buttons">Submit</button>
+        <button onClick="window.location.href='https://nanaimg.net/dashboard'" class="us-buttons">Cancel</button>
+    </div>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals role 'Janny'}}
+<div id="div-settings">
+    <h2 id="h2-settings">Post as:</h2>
+    <input id="us-input-1" class="us-inputs" type="checkbox"/><label id="us-label-1" class="us-labels"><span style="color: rgb(34, 177, 76);">{{user}} <img src="https://nanaimg.net/assets/spaceedge.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-2" class="us-inputs" type="checkbox"/><label id="us-label-2" class="us-labels"><span style="color: rgb(0, 162, 232);">{{user}} <img src="https://nanaimg.net/assets/verifiedbadge.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-3" class="us-inputs" type="checkbox"/><label id="us-label-3" class="us-labels">Anonymous</label>
+    <div id="us-buttons-div">
+        <button id="us-submit-button" class="us-buttons">Submit</button>
+        <button onClick="window.location.href='https://nanaimg.net/dashboard'" class="us-buttons">Cancel</button>
+    </div>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals role 'Verified'}}
+<div id="div-settings">
+    <h2 id="h2-settings">Post as:</h2>
+    <input id="us-input-2" class="us-inputs" type="checkbox"/><label id="us-label-2" class="us-labels"><span style="color: rgb(0, 162, 232);">{{user}} <img src="https://nanaimg.net/assets/verifiedbadge.png" class="settings-badges"/></span></label><br>
+    <input id="us-input-3" class="us-inputs" type="checkbox"/><label id="us-label-3" class="us-labels">Anonymous</label>
+    <div id="us-buttons-div">
+        <button id="us-submit-button" class="us-buttons">Submit</button>
+        <button onClick="window.location.href='https://nanaimg.net/dashboard'" class="us-buttons">Cancel</button>
+    </div>
+</div>
+{{/ifEquals}}

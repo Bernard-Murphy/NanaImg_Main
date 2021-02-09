@@ -1,0 +1,20 @@
+{{! Page that renders when you log in but your registration was rejected. }}
+
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+{{#if user}}
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{user}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+{{/if}}
+
+<p id="p-pending">Your registration was rejected.</p>

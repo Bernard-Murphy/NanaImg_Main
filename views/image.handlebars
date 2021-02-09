@@ -1,0 +1,282 @@
+{{! Imports the Axios library from a CDN}}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script defer src="/image.js"></script>
+
+<div id="clickable">
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+
+
+{{#if loggedUser}}
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{loggedUser}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+{{/if}}
+
+{{! Image number, and if it is removed, it will say so in red letters and give the reason for its removal }}
+
+<h2 id="h2-image-id">#{{imgnum}}</h2>
+
+{{#ifEquals removed 1}}
+<h2 id="h2-removed">(Removed)</h2>
+<p id="p-image-removed-reason">{{removedReason}}</p>
+{{/ifEquals}}
+
+{{! Gives information about the image - who posted it, when it was posted, its direct link. There are two tooltips that the user can see if they hover their mouse over the copy links. }}
+
+<div id="image-navigation">
+{{#if previous}}<a id="previous-anchor" href="/image/{{previous}}">Previous</a> {{/if}} {{#if next}}<a id="next-anchor" href="/image/{{next}}">Next</a> {{/if}}</div>
+<img src={{imgsrc}} id="featured-image" onClick="window.open('{{direct_link}}')"><br/>
+<p id="direct-link-p">Image direct link (Use this for posting to Reddit, Ruqqus, vBulletin [<span id="span-onatool" data-tooltip="Copy to Clipboard" ><span id="span-onacopy" onClick="onaCopy()" >copy embed</span></span>], etc):</p><br/>
+<h3 id="direct-link-h3">{{direct_link}}</h3>
+<p id="p-copy-direct-link">[<span id="span-regtool" data-tooltip="Copy to Clipboard" ><span id="span-regcopy" onClick="regCopy()">Copy direct link</span></span>]</p>
+<input readonly type="text" class="hide" value="[img]{{direct_link}}[/img]" id="input-ona-embed"/>
+<input readonly type="text" class="hide" value="{{direct_link}}" id="input-reg-embed"/>
+<div id="image-info-div">
+    {{#if opid}}
+    <h3 id="manifesto-by-user">Posted by <span id="span-posted-by">{{user}}</span> <span id=opid{{opid}}>(ID: <span style="font-weight: bold; background: {{opColor}}; color: black;">{{opid}}</span>)</span> on <span id="op-post-date" style="font-weight: bold">{{date}}</span></h3>
+    {{/if}}
+    {{#ifNotEquals opBadge "0"}}
+    <h3 id="manifesto-by-user">Posted by <span style="color: {{badgeColor}}" id="span-posted-by-badge">{{user}}</span> <img class="op-badges" style="margin-top: {{spaceOpBadgeUp opBadge}}px" src={{opBadge}} alt={{user}}/> <span id={{spaceOpBadgeSide opBadge}}>on <span id="op-post-date" style="font-weight: bold">{{date}}</span></span></h3>
+    {{/ifNotEquals}}
+
+
+    {{! Manifesto section}}
+    {{#if manifesto}}
+    <div id="manifesto-div">
+        <p id="manifesto-text">{{manifesto}}</p>
+    </div>
+    {{/if}}
+
+    {{! "access" is determined by whether or not the user is a mod or an admin. If they are either, they will have access to all of the mod buttons, such as the remove and restore buttons}}
+    {{#ifEquals access true}}
+    {{#ifEquals manifestoRemoved 1}}
+    <div id="manifesto-div">
+        <p id="manifesto-text"><span style="color: crimson; font-weight: bold">Manifesto removed: </span>{{manifestoRemovedReason}}</p>
+    </div>
+    <div id="manifesto-restore-section">
+        <button id="manifesto-restore{{imgnum}}" class="manifesto-restore-buttons">Restore Manifesto</button>
+        <div id="manifesto-restore-options{{imgnum}}" class="hide">
+            <button id="manifesto-restore-confirm{{imgnum}}" class="manifesto-restore-buttons">Confirm</button>
+            <button id="manifesto-restore-cancel{{imgnum}}" class="manifesto-restore-buttons">Cancel</button>
+        </div>
+    </div>
+    {{/ifEquals}}
+    {{/ifEquals}}
+</div>
+
+{{! Report button. One of many.}}
+{{#ifEquals removed 0}}
+<div id="post-report-section">
+    <button id="post-report{{imgnum}}" class="post-report-buttons">Report Post</button>
+    <div id="post-report-reasons{{imgnum}}" class="hide">
+        <button id="post-report-spam{{imgnum}}" class="post-report-buttons">Spam</button>
+        <button id="post-report-porn{{imgnum}}" class="post-report-buttons">Porn</button>
+        <button id="post-report-other{{imgnum}}" class="post-report-buttons">Other</button>
+    </div>
+</div>
+{{/ifEquals}}
+
+{{#ifEquals removed 1}}
+{{#ifEquals access true}}
+<div id="post-restore-section">
+    <button id="post-restore{{imgnum}}" class="post-restore-buttons">Restore Post</button>
+    <div id="post-restore-options{{imgnum}}" class="hide">
+        <button id="post-restore-confirm{{imgnum}}" class="post-report-buttons">Confirm</button>
+        <button id="post-restore-cancel{{imgnum}}" class="post-report-buttons">Cancel</button>
+    </div>
+</div>
+{{/ifEquals}}
+{{/ifEquals}}
+
+{{#ifEquals removed 0}}
+{{#ifEquals access true}}
+<div id="post-remove-section">
+    <button id="post-remove{{imgnum}}" class="post-remove-buttons">Remove Image</button>
+    <div id="post-remove-options{{imgnum}}" class="hide">
+        <button id="post-remove-confirm{{imgnum}}" class="post-report-buttons">Spam</button>
+        <button id="post-remove-porn{{imgnum}}" class="post-report-buttons">Porn</button>
+        <button id="post-remove-options-btn{{imgnum}}" class="post-report-buttons">Other</button>
+    </div>
+</div>
+{{#ifEquals manifestoRemoved 0}}
+{{#if manifesto}}
+<div id="manifesto-remove-section">
+    <button id="manifesto-remove{{imgnum}}" class="post-remove-buttons">Remove Manifesto</button>
+    <div id="manifesto-remove-options{{imgnum}}" class="hide">
+        <button id="manifesto-remove-confirm{{imgnum}}" class="post-report-buttons">Spam</button>
+        <button id="manifesto-remove-options-btn{{imgnum}}" class="post-report-buttons">Other</button>
+    </div>
+</div>
+{{/if}}
+{{/ifEquals}}
+{{/ifEquals}}
+{{/ifEquals}}
+
+{{! The comment form uses this for when a user clicks on a post number. It is invisible to the user.}}
+<p style="display:none" id="read-p"></p>
+
+
+{{! View count.}}
+{{#ifEquals views 1}}
+<p id="p-view-count">{{views}} View</p>
+{{/ifEquals}}
+
+{{#ifNotEquals views 1}}
+<p id="p-view-count">{{views}} Views</p>
+{{/ifNotEquals}}
+
+
+{{#ifNotEquals commentsDisabled 1}}
+
+{{! Comment form, differs based on whether the user is verified }}
+{{#ifEquals verified true}}
+<link href="/comverifiles/static/css/main.a1b1cd46.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(e){function r(r){for(var n,u,a=r[0],c=r[1],l=r[2],s=0,p=[];s<a.length;s++)u=a[s],Object.prototype.hasOwnProperty.call(o,u)&&o[u]&&p.push(o[u][0]),o[u]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(f&&f(r);p.length;)p.shift()();return i.push.apply(i,l||[]),t()}function t(){for(var e,r=0;r<i.length;r++){for(var t=i[r],n=!0,a=1;a<t.length;a++){var c=t[a];0!==o[c]&&(n=!1)}n&&(i.splice(r--,1),e=u(u.s=t[0]))}return e}var n={},o={1:0},i=[];function u(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,u),t.l=!0,t.exports}u.e=function(e){var r=[],t=o[e];if(0!==t)if(t)r.push(t[2]);else{var n=new Promise((function(r,n){t=o[e]=[r,n]}));r.push(t[2]=n);var i,a=document.createElement("script");a.charset="utf-8",a.timeout=120,u.nc&&a.setAttribute("nonce",u.nc),a.src=function(e){return u.p+"comverifiles/static/js/"+({}[e]||e)+"."+{3:"7c8b22d0"}[e]+".chunk.js"}(e);var c=new Error;i=function(r){a.onerror=a.onload=null,clearTimeout(l);var t=o[e];if(0!==t){if(t){var n=r&&("load"===r.type?"missing":r.type),i=r&&r.target&&r.target.src;c.message="Loading chunk "+e+" failed.\n("+n+": "+i+")",c.name="ChunkLoadError",c.type=n,c.request=i,t[1](c)}o[e]=void 0}};var l=setTimeout((function(){i({type:"timeout",target:a})}),12e4);a.onerror=a.onload=i,document.head.appendChild(a)}return Promise.all(r)},u.m=e,u.c=n,u.d=function(e,r,t){u.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},u.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},u.t=function(e,r){if(1&r&&(e=u(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(u.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)u.d(t,n,function(r){return e[r]}.bind(null,n));return t},u.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return u.d(r,"a",r),r},u.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},u.p="/",u.oe=function(e){throw console.error(e),e};var a=this["webpackJsonpnanaimg-comment-verified"]=this["webpackJsonpnanaimg-comment-verified"]||[],c=a.push.bind(a);a.push=r,a=a.slice();for(var l=0;l<a.length;l++)r(a[l]);var f=c;t()}([])</script><script src="/comverifiles/static/js/2.232da27b.chunk.js"></script><script src="/comverifiles/static/js/main.92c59881.chunk.js"></script></body></html>
+{{/ifEquals}}
+
+{{#ifEquals verified false}}
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="https://nanaimg.net/commentfiles/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="NanaImg - Bare bones image host"/><link rel="apple-touch-icon" href="https://nanaimg.net/commentfiles/logo192.png"/><link rel="manifest" href="https://nanaimg.net/commentfiles/manifest.json"/><title>NanaImg</title><script src="https://www.google.com/recaptcha/api.js?render=explicit"></script><link href="https://nanaimg.net/commentfiles/static/css/main.a1b1cd46.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(e){function t(t){for(var n,u,i=t[0],c=t[1],l=t[2],s=0,p=[];s<i.length;s++)u=i[s],Object.prototype.hasOwnProperty.call(o,u)&&o[u]&&p.push(o[u][0]),o[u]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(f&&f(t);p.length;)p.shift()();return a.push.apply(a,l||[]),r()}function r(){for(var e,t=0;t<a.length;t++){for(var r=a[t],n=!0,i=1;i<r.length;i++){var c=r[i];0!==o[c]&&(n=!1)}n&&(a.splice(t--,1),e=u(u.s=r[0]))}return e}var n={},o={1:0},a=[];function u(t){if(n[t])return n[t].exports;var r=n[t]={i:t,l:!1,exports:{}};return e[t].call(r.exports,r,r.exports,u),r.l=!0,r.exports}u.e=function(e){var t=[],r=o[e];if(0!==r)if(r)t.push(r[2]);else{var n=new Promise((function(t,n){r=o[e]=[t,n]}));t.push(r[2]=n);var a,i=document.createElement("script");i.charset="utf-8",i.timeout=120,u.nc&&i.setAttribute("nonce",u.nc),i.src=function(e){return u.p+"commentfiles/static/js/"+({}[e]||e)+"."+{3:"58cb2bd5"}[e]+".chunk.js"}(e);var c=new Error;a=function(t){i.onerror=i.onload=null,clearTimeout(l);var r=o[e];if(0!==r){if(r){var n=t&&("load"===t.type?"missing":t.type),a=t&&t.target&&t.target.src;c.message="Loading chunk "+e+" failed.\n("+n+": "+a+")",c.name="ChunkLoadError",c.type=n,c.request=a,r[1](c)}o[e]=void 0}};var l=setTimeout((function(){a({type:"timeout",target:i})}),12e4);i.onerror=i.onload=a,document.head.appendChild(i)}return Promise.all(t)},u.m=e,u.c=n,u.d=function(e,t,r){u.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},u.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},u.t=function(e,t){if(1&t&&(e=u(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(u.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var n in e)u.d(r,n,function(t){return e[t]}.bind(null,n));return r},u.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return u.d(t,"a",t),t},u.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},u.p="https://nanaimg.net/commentfiles/",u.oe=function(e){throw console.error(e),e};var i=this["webpackJsonpnanaimg-image"]=this["webpackJsonpnanaimg-image"]||[],c=i.push.bind(i);i.push=t,i=i.slice();for(var l=0;l<i.length;l++)t(i[l]);var f=c;r()}([])</script><script src="https://nanaimg.net/commentfiles/static/js/2.b488631f.chunk.js"></script><script src="https://nanaimg.net/commentfiles/static/js/main.5c4aaf51.chunk.js"></script></body></html>
+{{/ifEquals}}
+
+{{! Comment section }}
+<h2 id="comment-count">Comments({{commentNumber}})</h2>
+
+{{! There will only be a comment page number if there are more than 200 comments on an image.}}
+{{#if commentExcess}}
+<p id="p-comment-page-number">Page {{commentPage}}</p>
+<div id="div-comment-page-button">
+{{#if previousComments}}
+<a class="a-prev-next" href="{{baseUrl}}/image/{{imgnum}}/{{previousComments}}">Previous</a>
+{{/if}}
+{{#if nextComments}}
+<a class="a-prev-next" href="{{baseUrl}}/image/{{imgnum}}/{{nextComments}}">Next</a>
+{{/if}}
+</div>
+{{/if}}
+
+{{! Renders comments for people without access}}
+{{#ifEquals access false}}
+{{#each comments}}
+<div id=c{{this.comment_id}} class="comment-divs">
+    {{#ifEquals this.badge '0'}}
+        <div class="comment-info-div">
+            <p id=n{{this.comment_id}} class="comment-name">{{this.name}}</p>
+            <p id=id{{this.comment_id}} class="comment-author-id">(ID: <span id=idc{{this.comment_id}} style="font-weight: bold; background: {{this.poster_css_color}}; color: black;">{{this.poster_id}}</span>)</p>
+            <p id=d{{this.comment_id}} class="comment-date">{{this.date}}</p>
+            <p id=i{{this.comment_id}} class="comment-id comment-numbers">#{{this.comment_id}}</p>
+        </div>
+    {{/ifEquals}}
+    {{#ifNotEquals this.badge '0'}}
+        <div class="comment-info-div">
+            <p id=n{{this.comment_id}} class="comment-name-badge" style="color: {{getBadgeColor this.badge}}">{{this.name}}</p>
+            <div class="badge-container-comment {{getBadgeContWidth this.badge}}">
+                <img id=bad{{this.comment_id}} class="op-badges" src={{this.badge}} alt={{this.user}}/>
+            </div>
+            <p id=d{{this.comment_id}} class="comment-date-badge">{{this.date}}</p>
+            <p id=i{{this.comment_id}} class="comment-id comment-numbers">#{{this.comment_id}}</p>
+        </div>
+    {{/ifNotEquals}}
+    {{#if this.avatar}}
+    <a class="avatar-image-links" onClick="window.open('/image/{{this.avatar}}')"><img id=img{{this.comment_id}} class="avatar-images" src="https://img.nanaimg.net/thumbnails/{{this.avatar_url}}"></a>
+    {{/if}}
+    <p id="p{{this.comment_id}}" class="comment-text">{{this.comment_text}}</p>
+    <div class="comment-replies" id=r{{this.comment_id}}><p id=s{{this.comment_id}} class="hide p-replies">Replies:</p></div>
+    {{#ifEquals this.removed 0}}
+    <button id="report{{this.comment_id}}" class="comment-report-buttons">Report</button>
+    <div id="report-reasons{{this.comment_id}}" class="hide">
+        <button id="report-spam{{this.comment_id}}" class="comment-report-buttons">Spam</button>
+        <button id="report-other{{this.comment_id}}" class="comment-report-buttons">Other</button>
+    </div>
+    {{/ifEquals}}
+    {{#ifEquals this.removed 1}}
+    <button id="restore{{this.comment_id}}" class="comment-remove-buttons">Restore</button>
+    <div id="restore-options{{this.comment_id}}" class="hide">
+        <button id="restore-confirm{{this.comment_id}}" class="comment-report-buttons">Confirm</button>
+        <button id="restore-cancel{{this.comment_id}}" class="comment-report-buttons">Cancel</button>
+    </div>
+    {{/ifEquals}}
+    {{#ifEquals this.removed 1}}
+    <h1 class="h1-removed">Removed: {{this.removed_reason}}</h1>
+    {{/ifEquals}}
+
+</div>
+{{/each}}
+{{/ifEquals}}
+
+{{! Renders comments for people with access}}
+{{#ifEquals access true}}
+{{#each comments}}
+{{#ifEquals this.removed 0}}
+<div id=c{{this.comment_id}} class="comment-divs">
+{{/ifEquals}}
+
+{{! if the comment is removed, its background is lightcoral}}
+
+{{#ifEquals this.removed 1}}
+<div id=c{{this.comment_id}} class="comment-divs" style="background: lightcoral">
+{{/ifEquals}}
+    {{#ifEquals this.badge '0'}}
+        <div class="comment-info-div">
+            <p id=n{{this.comment_id}} class="comment-name">{{this.name}}</p>
+            <p id=id{{this.comment_id}} class="comment-author-id">(ID: <span id=idc{{this.comment_id}} style="font-weight: bold; background: {{this.poster_css_color}}; color: black;">{{this.poster_id}}</span>)</p>
+            <p id=d{{this.comment_id}} class="comment-date">{{this.date}}</p>
+            <p id=i{{this.comment_id}} class="comment-id comment-numbers">#{{this.comment_id}}</p>
+        </div>
+    {{/ifEquals}}
+    {{#ifNotEquals this.badge '0'}}
+        <div class="comment-info-div">
+            <p id=n{{this.comment_id}} class="comment-name-badge" style="color: {{getBadgeColor this.badge}}">{{this.name}}</p>
+            <div class="badge-container-comment {{getBadgeContWidth this.badge}}">
+                <img id=bad{{this.comment_id}} class="op-badges" src={{this.badge}} alt={{this.user}}/>
+            </div>
+            <p id=d{{this.comment_id}} class="comment-date-badge" style="margin: 0 1rem 0 40px">{{this.date}}</p>
+            <p id=i{{this.comment_id}} class="comment-id comment-numbers">#{{this.comment_id}}</p>
+        </div>
+    {{/ifNotEquals}}
+    {{#if this.avatar}}
+    <a class="avatar-image-links" onClick="window.open('/image/{{this.avatar}}')"><img id=img{{this.comment_id}} class="avatar-images" src="https://img.nanaimg.net/thumbnails/{{this.avatar_url}}"></a>
+    {{/if}}
+    <p id="p{{this.comment_id}}" class="comment-text">{{this.comment_text}}</p>
+    <div class="comment-replies" id=r{{this.comment_id}}><p id=s{{this.comment_id}} class="hide p-replies">Replies:</p></div>
+    {{#ifEquals this.removed 0}}
+    <button id="report{{this.comment_id}}" class="comment-report-buttons">Report</button>
+    <div id="report-reasons{{this.comment_id}}" class="hide">
+        <button id="report-spam{{this.comment_id}}" class="comment-report-buttons">Spam</button>
+        <button id="report-other{{this.comment_id}}" class="comment-report-buttons">Other</button>
+    </div>
+    <button id="remove{{this.comment_id}}" class="comment-remove-buttons">Remove</button>
+    <div id="remove-options{{this.comment_id}}" class="hide">
+        <button id="remove-confirm{{this.comment_id}}" class="comment-report-buttons">Spam</button>
+        <button id="remove-options-btn{{this.comment_id}}" class="comment-report-buttons">Other</button>
+    </div>
+    {{/ifEquals}}
+    {{#ifEquals this.removed 1}}
+    <button id="restore{{this.comment_id}}" class="comment-remove-buttons">Restore</button>
+    <div id="restore-options{{this.comment_id}}" class="hide">
+        <button id="restore-confirm{{this.comment_id}}" class="comment-report-buttons">Confirm</button>
+        <button id="restore-cancel{{this.comment_id}}" class="comment-report-buttons">Cancel</button>
+    </div>
+    {{/ifEquals}}
+    {{#ifEquals this.removed 1}}
+    <h1 class="h1-removed">Removed: {{this.removed_reason}}</h1>
+    {{/ifEquals}}
+
+</div>
+{{/each}}
+{{/ifEquals}}
+
+<button id="return-top-button"><a id="return-top-anchor" href="#banner">Return to top</a></button>
+
+{{/ifNotEquals}}
+</div>
+

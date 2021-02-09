@@ -1,0 +1,63 @@
+{{! Loads the browse.js script due to the prevalence of React Select on the page }}
+
+<script defer src="/browse.js"></script>
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a id="here" href="/browse">Browse</a>
+    <a href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+{{#if user}}
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{user}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+{{/if}}
+
+{{! Sorting options, previous/next page buttons}}
+<h1 id="h1-sort-images">{{sort}}</h1>
+<p id="p-page-number">Page {{page}}</p><br/>
+<div id="prev-next-div">
+{{#if previous}}
+<a class="a-prev-next" href="{{baseUrl}}/{{previous}}">Previous</a>
+{{/if}}
+<a class="a-prev-next" href="{{baseUrl}}/{{next}}">Next</a>
+</div>
+
+{{! These are hidden from the user and used for the sorting widget}}
+<p class="hide" id="offSet">{{offset}}</p>
+<p class="hide" id="sortedBy">{{sort}}</p>
+<p class="hide" id="units">{{units}}</p>
+<p id="p-sorted">Sorted by {{sort}}</p>
+
+{{! Sorting widget}}
+<link href="https://nanaimg.net/browsefiles/static/css/main.b35f6021.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(e){function r(r){for(var n,u,i=r[0],c=r[1],l=r[2],s=0,p=[];s<i.length;s++)u=i[s],Object.prototype.hasOwnProperty.call(o,u)&&o[u]&&p.push(o[u][0]),o[u]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(f&&f(r);p.length;)p.shift()();return a.push.apply(a,l||[]),t()}function t(){for(var e,r=0;r<a.length;r++){for(var t=a[r],n=!0,i=1;i<t.length;i++){var c=t[i];0!==o[c]&&(n=!1)}n&&(a.splice(r--,1),e=u(u.s=t[0]))}return e}var n={},o={1:0},a=[];function u(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,u),t.l=!0,t.exports}u.e=function(e){var r=[],t=o[e];if(0!==t)if(t)r.push(t[2]);else{var n=new Promise((function(r,n){t=o[e]=[r,n]}));r.push(t[2]=n);var a,i=document.createElement("script");i.charset="utf-8",i.timeout=120,u.nc&&i.setAttribute("nonce",u.nc),i.src=function(e){return u.p+"browsefiles/static/js/"+({}[e]||e)+"."+{3:"d1638daf"}[e]+".chunk.js"}(e);var c=new Error;a=function(r){i.onerror=i.onload=null,clearTimeout(l);var t=o[e];if(0!==t){if(t){var n=r&&("load"===r.type?"missing":r.type),a=r&&r.target&&r.target.src;c.message="Loading chunk "+e+" failed.\n("+n+": "+a+")",c.name="ChunkLoadError",c.type=n,c.request=a,t[1](c)}o[e]=void 0}};var l=setTimeout((function(){a({type:"timeout",target:i})}),12e4);i.onerror=i.onload=a,document.head.appendChild(i)}return Promise.all(r)},u.m=e,u.c=n,u.d=function(e,r,t){u.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},u.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},u.t=function(e,r){if(1&r&&(e=u(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(u.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)u.d(t,n,function(r){return e[r]}.bind(null,n));return t},u.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return u.d(r,"a",r),r},u.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},u.p="https://nanaimg.net/browsefiles/",u.oe=function(e){throw console.error(e),e};var i=this["webpackJsonpnanaimg-browse"]=this["webpackJsonpnanaimg-browse"]||[],c=i.push.bind(i);i.push=r,i=i.slice();for(var l=0;l<i.length;l++)r(i[l]);var f=c;t()}([])</script><script src="https://nanaimg.net/browsefiles/static/js/2.071fd3b9.chunk.js"></script><script src="https://nanaimg.net/browsefiles/static/js/main.c9da0242.chunk.js"></script></body></html>
+
+<div id="card-container">
+
+{{! If there are images, it goes through each of the images and shows their thumbnails, the users who posted them, number of comments, and a short preview of the manifesto if one exists }}
+
+{{#if cardNumber}}
+{{#each cards}}
+<div class="post-cards">
+    <img class="image-post-card" src="https://img.nanaimg.net/thumbnails/{{this.thumbnail}}"  onClick="window.location.href = '/image/{{this.image_id}}'"/>
+    <h4 class="author-post-card">{{this.user}}</h4>
+    {{#if this.manifesto}}
+    <p class="manifesto-post-card">{{this.manifesto}}</p>
+    {{/if}}
+    <p class="comment-count-post-card">Comments: <span style="font-weight: bold">{{this.comments}}</span></p>
+</div>
+{{/each}}
+{{/if}}
+
+{{! If there are no images, it will say "You have reached the end"}}
+<h1 id="h1-reached-end">
+{{custIf cardNumber}}
+</h1>
+</div>
+
+<button id="return-top-button"><a id="return-top-anchor" href="#banner">Return to top</a></button>

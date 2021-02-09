@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "https://nanaimg.net/static/css/main.36154a0f.chunk.css",
+    "main.js": "https://nanaimg.net/static/js/main.897caefe.chunk.js",
+    "main.js.map": "https://nanaimg.net/static/js/main.897caefe.chunk.js.map",
+    "runtime-main.js": "https://nanaimg.net/static/js/runtime-main.29a2490d.js",
+    "runtime-main.js.map": "https://nanaimg.net/static/js/runtime-main.29a2490d.js.map",
+    "static/js/2.1b908d69.chunk.js": "https://nanaimg.net/static/js/2.1b908d69.chunk.js",
+    "static/js/2.1b908d69.chunk.js.map": "https://nanaimg.net/static/js/2.1b908d69.chunk.js.map",
+    "static/js/3.bdb3b00d.chunk.js": "https://nanaimg.net/static/js/3.bdb3b00d.chunk.js",
+    "static/js/3.bdb3b00d.chunk.js.map": "https://nanaimg.net/static/js/3.bdb3b00d.chunk.js.map",
+    "index.html": "https://nanaimg.net/index.html",
+    "static/css/main.36154a0f.chunk.css.map": "https://nanaimg.net/static/css/main.36154a0f.chunk.css.map",
+    "static/js/2.1b908d69.chunk.js.LICENSE.txt": "https://nanaimg.net/static/js/2.1b908d69.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.29a2490d.js",
+    "static/js/2.1b908d69.chunk.js",
+    "static/css/main.36154a0f.chunk.css",
+    "static/js/main.897caefe.chunk.js"
+  ]
+}

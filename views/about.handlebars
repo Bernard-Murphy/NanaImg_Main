@@ -1,0 +1,40 @@
+{{!-- These are the rules. If the user is logged in, they will be able to navigate to their dashboard or log out. --}}
+
+
+<nav id="nav-bar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a id="here" href="/about">About</a>
+    <a href="/games">Games</a>
+</nav>
+
+{{#if user}}
+<div class="div-logged-in">
+    <p class="p-logged-in">You are logged in as <span style="font-weight: bold">{{user}}</span></p>
+    <div class="div-logged-anchors">
+        <a class="a-logged-in" href="/dashboard">Dashboard</a>
+        <a class="a-logged-in" href="/logout">Log Out</a>
+    </div>
+</div>
+{{/if}}
+
+<h2 class="h2-about">Rules</h2>
+<p class="p-about"><span style="font-weight: bold;">1. No Porn.</span> Porn is defined as images of a sexual nature that have no artistic or other value. Lewd images that have comedic or other artistic value are allowed but should be marked "NSFW" in the upload options.</p>
+
+<p class="p-about"><span style="font-weight: bold;">2. No Advertising.</span> There is no place to advertise your product on NanaImg.</p>
+
+<p class="p-about"><span style="font-weight: bold;">3. No Spam.</span> Spam includes keyboard diarrhea (i.e. @#R%$#FCEaj4903rfacdsajoFDSAFS), or intentionally bypassing the md5 hash check to post the same image over and over.</p>
+
+<p class="p-about"><span style="font-weight: bold;">4. No Illegal Content.</span> Content that you put onto NanaImg must abide by all U.S. laws, especially copyright laws and laws against threats of violence.</p>
+
+<h2 class="h2-about">Navigation</h2>
+
+<p class="p-about center">NanaImg.net looks and works best on the <a class="anchor-about" href="https://brave.com/download/">Brave Browser.</a> Download Brave for the best experience.</p>
+
+<p class="p-about center">Find any image on NanaImg by going to <span style="font-weight:bold;">https://NanaImg.net/image/(image number)</span> or <span style="font-weight:bold;">https://NanaImg.net/images/(image number)</span></p>
+
+<p class="p-about center">Find any comment on NanaImg by going to <span style="font-weight:bold;">https://NanaImg.net/comment/(comment number)</span> or <span style="font-weight:bold;">https://NanaImg.net/comments/(comment number)</span></p>
+
+<h2 class="h2-about">DMCA</h2>
+
+<p class="p-about center">If there is any copyrighted content of yours that is being hosted on NanaImg, please send an email to <span style="font-weight: bold;">DMCA@NanaImg.net</span>, properly identifying yourself and providing links to all infringing content, along with proof that you are the owner of said content.</p>

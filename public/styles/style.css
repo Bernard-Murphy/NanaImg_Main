@@ -1,0 +1,1777 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+@font-face{
+    font-family: Raleway;
+    src: url('https://nanaimg.net/assets/Raleway-Regular.ttf');
+  }
+
+@font-face{
+    font-family: Pokemon GB;
+    src: url('https://nanaimg.net/assets/Pokemon.ttf');
+}
+
+html {
+    font-size: 62.5%;
+    height: 100vh;
+    background: lightgrey;
+    border: 0 !important;
+}
+
+#banner {
+    border: 4px solid black;
+    background: rgb(223, 211, 196);
+    padding-left: 1rem;
+}
+
+#canvas {
+    display: block;
+    margin: 2rem auto;
+}
+
+a, button {
+    text-decoration: none;
+    color: black;
+}
+
+#nav-bar {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 2.4rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+}
+
+#nav-bar a {
+    text-decoration: none;
+    background: khaki;
+    padding: 1rem 2rem;
+    border: 1px solid black;
+}
+
+#nav-bar a:hover {
+    transition-duration: 0.5s;
+    background: white;
+}
+
+#nav-bar #here {
+    background: white;
+}
+
+#upload-your-image {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3.6rem;
+    text-align: center;
+}
+
+form {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#image-submit-button, #options-button {
+    margin-top: 2rem;
+    cursor: pointer;
+    font-size: 1.8rem;
+    border-radius: 4px;
+    box-shadow: 0;
+}
+
+#image-submit-button {
+    background: rgb(35, 255, 108);
+    border: 2px solid rgb(18, 184, 18);
+    margin-right: 2rem;
+}
+
+#image-submit-button:hover {
+    background:white;
+    color: rgb(35, 255, 108);
+    border: 2px solid rgb(35, 255, 108);
+    transition: 0.25s;
+}
+
+#options-button {
+    border: 2px solid black;
+    background: beige !important;
+}
+
+#options-button:hover {
+    background: black;
+    color: white;
+    border: 2px solid grey;
+    transition: 0.25s;
+}
+
+
+/* Image Page */
+
+#featured-image {
+    cursor: pointer;
+    max-width: 80%;
+    max-height: 1000px;
+    display: block;
+    margin: 0 auto;
+}
+
+#direct-link-p, #p-copy-direct-link {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#direct-link-h3 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.4rem;
+    margin: 0 auto;
+}
+
+#h2-image-id, #h2-removed {
+    text-align: center;
+    font-size: 3.2rem;
+    font-family: Pokemon GB, Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-bottom: 1rem;
+}
+
+#h2-removed {
+    color: red;
+}
+
+.comment-name {
+    font-weight: bold;
+    font-size: 2rem;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    display: block;
+    margin: 0;
+    color: crimson;
+}
+
+.comment-id {
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Pokemon GB, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    display: block;
+    margin: 0 1rem;
+}
+
+.comment-date {
+    font-size: 2rem;
+    display: block;
+    margin: 0 1rem;
+    max-width: fit-content;
+    word-wrap: none;
+}
+
+.comment-text {
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    font-size: 2rem;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.comment-text-foreign {
+    font-size: 2rem;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.comment-info-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.comment-divs {
+    margin: 1rem;
+    border: 3px solid black;
+    border-radius: 4px;
+    padding: 1rem;
+    background: darkgray;
+}
+
+.avatar-images, .avatar-image-links {
+    width: 10rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.quote-avatar-images {
+    width: 10rem;
+    margin-top: 1rem;
+}
+
+#return-top-button{
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-bottom: 2rem;
+}
+
+#return-top-button:hover, #return-top-anchor:hover{
+    background: darkgray;
+    transition: 0.25s;
+}
+
+#comment-count {
+    font-size: 1.8rem;
+    font-family: Pokemon GB, Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 1rem;
+}
+
+#p-view-count {
+    font-size: 2.2rem;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 1rem;
+}
+
+#previous-anchor, #next-anchor {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.8rem;
+}
+
+#image-navigation {
+    display: flex;
+    /* justify-content: space-between; */
+    width: 50rem;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+}
+
+#next-anchor {
+    display: block;
+    margin-left: 40rem;
+}
+
+#manifesto-by-user {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.4rem;
+    line-height: 3rem;
+}
+
+#manifesto-text {
+    font-size: 2rem;
+    white-space: pre-line;
+}
+
+#image-info-div {
+    width: 80%;
+    margin: 1.5rem auto;
+}
+
+#manifesto-div {
+    margin: 1.5rem auto;
+    border: 3px solid black;
+    border-radius: 4px;
+    padding: 1rem;
+    background: darkgray;
+    /* max-width: fit-content; */
+    max-width: max-content;
+    word-wrap: break-word;
+}
+
+.image-post-card {
+    max-width: 150px;
+    max-height: 150px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.author-post-card {
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: center;
+    color: red;
+}
+
+.manifesto-post-card, .comment-count-post-card {
+    font-size: 1.8rem;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.comment-count-post-card{
+    font-family: Raleway, 'Times New Roman', Times, serif;
+}
+
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-evenly;
+}
+
+.post-cards {
+    width: 20rem;
+    margin: 2rem;
+}
+
+#h1-sort-images {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.hide {
+    display: none;
+}
+
+#button-sort-by {
+  display: block;
+  margin-left: 30px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#button-sort-by:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+#p-sorted, #p-page-number {
+    margin-left: 30px;
+    display: block;
+    font-size: 1.8rem;
+}
+
+#p-page-number {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+}
+
+#a-sort-recent, #a-sort-popular {
+  display: none;
+  margin-left: 30px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  border: 1px solid black;
+  background: darkgrey;
+  text-align: center;
+  width: 7rem;
+}
+
+#a-sort-recent:hover, #a-sort-popular:hover, .a-prev-next:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+#h1-redirecting {
+    text-align: center;
+    font-size: 4.8rem;
+    font-weight: bold;
+}
+
+#h1-reached-end {
+    text-align: center;
+    font-weight: bold;
+    font-size: 7.2rem;
+    margin: 4rem;
+}
+
+.a-prev-next {
+    display: block;
+    margin-left: 30px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border: 1px solid black;
+    background: darkgrey;
+    text-align: center;
+    width: 8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+#p-sorted {
+    margin-bottom: 1rem;
+    font-family: Raleway, 'Times New Roman', Times, serif;
+}
+
+#prev-next-div {
+    display: flex;
+}
+
+#previous-anchor:hover, #next-anchor:hover{
+    color: gray;
+    transition: 0.25s;
+}
+
+#h1-404, #h1-dash{
+    font-weight: bold;
+    font-size: 4.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#span-posted-by {
+    font-weight: bold;
+}
+
+.comment-numbers {
+    cursor: pointer;
+}
+
+.comment-numbers:hover {
+    transition: 0.25s;
+    color: white;
+}
+
+.post-quotes {
+    font-weight: bold;
+    color: brown;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.post-quotes-mini {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: brown;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.post-quotes-mini-p {
+    margin: 0.5rem;
+    font-size: 1.6rem;
+}
+
+.p-replies {
+    font-size: 1.4rem;
+}
+
+.pop-up {
+    z-index: 1000;
+    position: absolute;
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 50%;
+}
+
+#browse-sort-div {
+    width: 22rem;
+}
+
+.comment-author-id {
+    max-width: fit-content;
+    font-size: 2rem;
+    margin-left: 1rem;
+    word-wrap: none;
+}
+
+#h1-nsfw {
+    text-align: center;
+    font-size: 4.8rem;
+    font-weight: bold;
+    margin-top: 4rem;
+}
+
+#p-nsfw-warning {
+    width: 75%;
+    display: block;
+    margin: 2rem auto;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.buttons-nsfw {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-bottom: 2rem;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.buttons-nsfw:hover, .comment-report-buttons:hover, .comment-remove-buttons:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+#div-nsfw-buttons {
+    display: flex;
+    width: 200px;
+    margin: 2rem auto;
+}
+
+.comment-report-buttons {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-left: 95%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.comment-remove-buttons {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-left: 95%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.div-logged-in {
+    border: 2px solid black;
+    background: mediumpurple;
+}
+
+.p-logged-in {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.a-logged-in {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+    display: block;
+    font-weight: bold;
+}
+
+.a-logged-in:hover {
+    color: white;
+    transition: 0.25s;
+}
+
+.div-logged-anchors {
+    display: flex;
+    justify-content: space-evenly;
+    width: 200px;
+    margin: 1rem auto;
+}
+
+.op-badges {
+    display: inline-block;
+    height: 3rem;
+    position: absolute;
+}
+
+.op-badges-mini {
+    height: 3rem;
+    margin-left: 1rem;
+}
+
+#span-posted-by-badge {
+    font-weight: bold;
+}
+
+.comment-date-badge {
+    font-size: 2rem;
+    display: block;
+    margin: 0 1rem 0 40px;
+    max-width: fit-content;
+    word-wrap: none;
+}
+
+.comment-name-badge {
+    font-weight: bold;
+    font-size: 2.4rem;
+    display: block;
+    margin: 0;
+}
+
+.badge-container-comment {
+    margin-left: 1rem;
+}
+
+.manifesto-by-user-badge {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.4rem;
+}
+
+.posted-by-badge {
+    display: flex;
+    margin: 0 auto;
+}
+
+.comment-replies {
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+.post-quotes a:hover {
+    color: white;
+    transition: 0.25s;
+}
+
+.report-button-selected {
+    background: darkcyan;
+    color: white;
+    border: 2px solid black;
+}
+
+.p-comment-report-sent {
+    text-align: right;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.p-post-report-sent {
+    text-align: right;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-right: 1.5rem;
+}
+
+.comment-report-buttons-other {
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.comment-report-buttons-other:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+.comment-report-buttons-other-cancel {
+    margin-left: 15px;
+}
+
+.report-buttons-div-other {
+    margin-left: 82%;
+    display: flex;
+}
+
+.textarea-report-comment {
+    margin: 10px 0 10px 82%;
+    width: 300px;
+    height: 75px;
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    color: black;
+}
+
+.p-report-error {
+    color: red;
+    text-align: right;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.back-button-dashboard {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    font-size: 2.4rem;
+    margin-left: 4rem;
+}
+
+.back-button-dashboard:hover {
+    color: white;
+    transition: 0.25s;
+}
+
+.post-report-buttons {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-left: 92%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.post-remove-buttons, .post-restore-buttons{
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-left: 92%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.manifesto-restore-buttons {
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: none;
+    font-weight: bold;
+    margin: 1rem auto;
+}
+
+.post-report-buttons:hover, .post-remove-buttons:hover, .post-restore-buttons:hover, .manifesto-restore-buttons:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+.h1-removed, .p-comment-removed, .p-manifesto-restored {
+    font-size: 1.8rem;
+    font-family: Raleway, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+}
+
+.p-comment-removed {
+    text-align: right;
+}
+
+.p-manifesto-restored {
+    text-align: center;
+}
+
+#p-image-removed-reason {
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+#h1-user-settings {
+    font-size: 4.8rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+.us-labels {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.4rem;
+    cursor: pointer;
+}
+
+.us-inputs {
+    margin-left: 41%;
+    margin-bottom: 2.5rem;
+    cursor: pointer;
+}
+
+.settings-badges {
+    display: inline-block;
+    height: 3rem;
+    position: absolute;
+    margin-left: 1rem;
+}
+
+.us-labels {
+    margin-left: 1rem;
+}
+
+#h2-settings {
+    font-size: 2.4rem;
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    margin: 2rem 0 2rem 38%;
+}
+
+.us-buttons {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-bottom: 2rem;
+}
+
+#us-buttons-div {
+    display: flex;
+    width: 30rem;
+    justify-content: space-evenly;
+    margin-left: 42%;
+}
+
+.us-buttons:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+#post-chadmin-mel-space{
+    margin-left: 150px;
+}
+
+#post-spaceedge-space{
+    margin-left: 155px;
+}
+
+#post-verified-space{
+    margin-left: 180px;
+}
+
+.comment-chadmin-mel-space{
+    width: 115px;
+}
+
+.comment-spaceedge-space{
+    width: 120px;
+}
+
+.comment-verified-space{
+    width: 140px;
+}
+
+.report-queue-data, #direct-link-h3, .author-post-card, .registry-data, .registrants-data, .log-data, .p-about {
+    word-break: break-word;
+}
+
+.h2-about {
+    font-size: 3.6rem;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-top: 2rem;
+}
+
+.p-about {
+    font-size: 2rem;
+    margin: 1rem 20%;
+    display: block;
+}
+
+.anchor-about {
+    color: blue;
+    font-weight: bold;
+}
+
+.anchor-about:hover {
+    color: white;
+    transition: 0.25s;
+}
+
+#p-pending {
+    font-size: 3.6rem;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+#p-comment-page-number {
+    margin: 1rem;
+    font-size: 1.6rem;
+    font-family: Raleway, 'Times New Roman', Times, serif;
+}
+
+#div-comment-page-button {
+    display: flex;
+    width: 20rem;
+    justify-content: space-evenly;
+}
+
+#h1-forgot-password {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4.2rem;
+    text-align: center;
+    width: 90%;
+    margin: 2rem auto;
+}
+
+#h1-password-reset {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3.6rem;
+    text-align: center;
+    width: 90%;
+    margin: 2rem auto;
+}
+
+.label-forgot-password {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-left: 40%;
+    margin-right: 1rem;
+}
+
+.button-forgot-password {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.div-forgot-password-buttons {
+    display: flex;
+    width: 15rem;
+    margin: 1rem auto;
+}
+
+.button-forgot-password:hover {
+    color: white;
+    background: black;
+    transition: 0.25s;
+}
+
+.div-forgot-password-inputs {
+    margin-top: 1rem;
+}
+
+#input-forgot-password-email {
+    margin-left: 4.2rem;
+}
+
+#p-forgot-password-message, #p-forgot-password-error {
+    font-family: Raleway, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+#p-forgot-password-error {
+    color:red;
+}
+
+.css-yk16xz-control {
+    cursor: pointer !important;
+}
+
+.registry-cards .reg-user {
+    color: crimson !important;
+    font-weight: bold !important;
+}
+
+#span-onacopy, #span-regcopy {
+    color: blue;
+    cursor: pointer;
+}
+
+#span-onacopy:hover, #span-regcopy:hover {
+    color: white;
+    transition: 0.25s;
+}
+
+#span-onatool:hover::before, #span-regtool:hover::before {
+    position: absolute;
+    content: attr(data-tooltip);
+    background: grey;
+    cursor: pointer;
+    z-index: 1;
+    transform: translateX(-3rem) translateY(-5.5rem);
+    padding: 1rem;
+    border: 2px solid black;
+}
+
+.button-report-queue {
+    background: beige !important;
+}
+
+.registrants-cards .regi-user {
+    font-weight: bold !important;
+    color: red !important;
+}
+
+@media screen and (max-width: 1835px){
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 90%;
+    }
+}
+
+@media screen and (max-width: 1740px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 80%;
+    }
+}
+
+@media screen and (max-width: 1564px){
+    .button-report-queue, .report-queue-data, .report-queue-types {
+        font-size: 1.6rem !important;
+    }
+}
+
+@media screen and (max-width: 1560px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 78%;
+    }
+}
+
+@media screen and (max-width: 1475px){
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 88%;
+    }
+}
+
+@media screen and (max-width: 1420px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 76%;
+    }
+}
+
+@media screen and (max-width: 1413px){
+    .button-report-queue, .report-queue-data, .report-queue-types {
+        font-size: 1.4rem !important;
+    }
+}
+
+@media screen and (max-width: 1365px){
+    .comment-report-buttons, .comment-remove-buttons {
+        margin-left: 93%;
+    }
+}
+
+@media screen and (max-width: 1300px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 74%;
+    }
+}
+
+@media screen and (max-width: 1262px){
+    .button-report-queue {
+        font-size: 1.2rem !important;
+    }
+}
+
+@media screen and (max-width: 1225px){
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 86%;
+    }
+
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 72%;
+    }
+}
+
+@media screen and (max-width: 1184px){
+    .p-about{
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 1120px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 70%;
+    }
+
+    .registry-data, .button-registry {
+        font-size: 1.6rem !important;
+    }
+}
+
+@media screen and (max-width: 1112px){
+    .button-report-queue {
+        font-size: 1.0rem !important;
+    }
+}
+
+@media screen and (max-width: 1065px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 68%;
+    }
+
+    #h2-settings {
+        margin-left: 34%;
+    }
+
+    .us-inputs {
+        margin-left: 37%;
+    }
+
+    #us-buttons-div {
+        margin-left: 38%;
+    }
+
+    .p-about{
+        font-size: 1.8rem;
+        margin: 1rem 10%;
+    }
+
+    .label-forgot-password {
+        margin-left: 35%;
+    }
+}
+
+@media screen and (max-width: 1051px){
+    #banner {
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }
+    #banner-img {
+        width: 99%;
+    }
+
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 84%;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .registrants-data, .button-registrants {
+        font-size: 1.6rem !important;
+    }
+}
+
+@media screen and (max-width: 985px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 65%;
+    }
+    .post-cards {
+        margin: 2rem 0.5rem;
+    }
+
+    .registry-data, .button-registry {
+        font-size: 1.2rem !important;
+    }
+}
+
+@media screen and (max-width: 955px){
+    .comment-report-buttons, .comment-remove-buttons {
+        margin-left: 91%;
+    }
+}
+
+@media screen and (max-width: 925px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 62%;
+    }
+}
+
+@media screen and (max-width: 905px){
+    #image-info-div {
+        width: 100%;
+    }
+
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 82%;
+    }
+}
+
+@media screen and (max-width: 835px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 58%;
+    }
+
+    .registry-data, .button-registry {
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (max-width: 805px){
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 2.1rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 2.1rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id, .comment-text, #manifesto-text {
+        font-size: 2.1rem;
+        line-height: 2.7rem;
+    }
+
+    .op-badges, .op-badges-mini{
+        height: 2.5rem;
+    }
+
+    #post-verified-space{
+        margin-left: 150px;
+    }
+
+    #post-spaceedge-space{
+        margin-left: 130px;
+    }
+
+    #post-chadmin-mel-space{
+        margin-left: 125px;
+    }
+
+    .comment-chadmin-mel-space{
+        width: 90px;
+    }
+    
+    .comment-spaceedge-space{
+        width: 95px;
+    }
+    
+    .comment-verified-space{
+        width: 110px;
+    }
+
+    #add-a-comment {
+        font-size: 2.1rem !important;
+    }
+
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 80%;
+    }
+
+    .report-queue-cards {
+        margin: 0.5rem !important;
+    }
+    
+    #registry-queue-heading {
+        display: none !important;
+    }
+
+    .registry-cards {
+        flex-wrap: wrap !important;
+        justify-content: space-evenly;
+    }
+
+    .registry-data, .button-registry {
+        font-size: 1.8rem !important;
+        margin: 1rem !important;
+    }
+
+    .reg-user {
+        font-weight: bold !important;
+    }
+
+    .reg-role {
+        width: 7rem;
+    }
+
+    .reg-user, .reg-email {
+        width: 50% !important;
+        margin: 1rem !important;
+    }
+
+    .reg-role {
+        width: 33% !important;
+    }
+
+    .reg-com {
+        width: 35% !important;
+        margin: 1rem !important;
+    }
+
+    .reg-act {
+        width: 15% !important;
+        margin: 1rem !important;
+    }
+
+    #h2-settings {
+        margin-left: 30%;
+    }
+
+    .us-inputs {
+        margin-left: 33%;
+    }
+
+    #us-buttons-div {
+        margin-left: 34%;
+    }
+
+    .p-about{
+        font-size: 1.6rem;
+        margin: 1rem 5%;
+    }
+
+    #p-nsfw-warning {
+        width: 85%;
+        font-size: 2.5rem;
+    }
+
+    #h1-nsfw {
+        font-size: 3.6rem;
+    }
+}
+
+@media screen and (max-width: 756px){
+    .report-buttons-div-other, .textarea-report-comment {
+        margin-left: 52%;
+    }
+
+    .comment-report-buttons, .comment-remove-buttons {
+        margin-left: 89%;
+    }
+}
+
+@media screen and (max-width: 730px){
+    .post-report-buttons, .post-remove-buttons, .post-restore-buttons {
+        margin-left: 78%;
+    }
+
+    .registrants-data, .button-registrants, .registrants-queue-types {
+        font-size: 1.4rem !important;
+    }
+
+    #h1-registrants {
+        font-size: 3.2rem !important;
+    }
+
+    .back-button-dashboard {
+        font-size: 2rem;
+    }
+
+}
+
+@media screen and (max-width: 685px){
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 1.8rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 1.8rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id, .comment-text, #manifesto-text {
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+    }
+
+    .op-badges, .op-badges-mini{
+        height: 2rem;
+    }
+
+    #post-verified-space{
+        margin-left: 120px;
+    }
+
+    #post-spaceedge-space{
+        margin-left: 105px;
+    }
+
+    #post-chadmin-mel-space{
+        margin-left: 100px;
+    }
+
+    .comment-chadmin-mel-space{
+        width: 65px;
+    }
+    
+    .comment-spaceedge-space{
+        width: 70px;
+    }
+    
+    .comment-verified-space{
+        width: 80px;
+    }
+
+    #add-a-comment {
+        font-size: 1.8rem !important;
+    }
+
+    #comment-textarea {
+        width: 40rem !important;
+    }
+
+    .post-report-buttons, .post-remove-buttons, .report-buttons-div-other, .textarea-report-comment, .comment-report-buttons, .comment-remove-buttons, .post-restore-buttons {
+        margin-left: 1rem;
+    }
+
+    .comment-text {
+        margin-bottom: 1.5rem;
+    }
+
+    #h1-sort-images, #h1-mod-logs, #h1-user-settings, #upload-your-image, #h1-report-queue, .h2-about, #h1-reached-end, #h1-forgot-password, #h1-password-reset {
+        font-size: 3.2rem !important;
+        margin-top: 1.5rem !important;
+    }
+
+    .logger-buttons, .log-data, .logs-types {
+        font-size: 1.6rem !important;
+    }
+}
+
+@media screen and (max-width: 650px){
+    #nav-bar {
+        margin: 2rem auto;
+        padding: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    #nav-bar a {
+        display: block;
+        padding: 0.5rem 1rem !important;
+        font-size: 2rem !important;
+    }
+
+    #image-navigation {
+        width: 30rem;
+    }
+
+    #next-anchor {
+        margin-left: 20rem;
+    }
+
+    .button-report-queue {
+        padding: 0.1rem;
+        margin: 0.2rem auto !important;
+    }
+
+    #h1-registry {
+        font-size: 3.2rem !important;
+    }
+
+    .logger-buttons, .log-data, .logs-types {
+        font-size: 1.4rem !important;
+    }
+
+    #h2-settings {
+        margin-left: 26%;
+    }
+
+    .us-inputs {
+        margin-left: 29%;
+    }
+
+    #us-buttons-div {
+        margin-left: 30%;
+    }
+
+    .label-forgot-password {
+        margin-left: 25%;
+    }
+}
+
+@media screen and (max-width: 580px){
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 1.6rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 1.6rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id, .comment-text, #manifesto-text {
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+    }
+
+    #add-a-comment, #comment-submit-button, .options-label {
+        font-size: 1.6rem !important;
+    }
+
+    #h2-image-id {
+        font-size: 2.4rem;
+    }
+
+    .registrants-cards {
+        flex-wrap: wrap !important;
+    }
+
+    #registrants-queue-heading {
+        display: none !important;
+    }
+
+    .registrants-data, .buttons-registrants {
+        font-size: 1.8rem !important;
+    }
+
+    .regi-user, .regi-email, .regi-date, .regi-role, .regi-act {
+        margin-top: 1rem !important;
+        width: 45% !important;
+    }
+
+    .regi-act {
+        margin: 1rem auto !important;
+    }
+
+    .regi-user {
+        font-weight: bold;
+    }
+
+}
+
+@media screen and (max-width: 540px){
+    #comment-textarea {
+        width: 30rem !important;
+    }
+}
+
+@media screen and (max-width: 510px){
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 1.4rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 1.4rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id, .comment-text, #manifesto-text {
+        font-size: 1.4rem;
+    }
+
+    #add-a-comment, #comment-submit-button, .options-label {
+        font-size: 1.4rem !important;
+    }
+
+    .op-badges, .op-badges-mini {
+        margin-top: 2px !important;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .manifesto-post-card {
+        max-width: 150px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .post-cards {
+        margin: 1rem 0.2rem;
+        width: 15rem;
+    }
+
+    .button-report-queue{
+        font-size: 0.8rem !important;
+        border: 0;
+    }
+
+    .report-queue-data, .report-queue-types {
+        font-size: 1rem !important;
+    }
+
+    .report-queue-cards {
+        margin: 0.5rem 0 !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+    }
+
+    .reg-email input, .reg-com input {
+        width: 17rem;
+    }
+
+    .registry-cards {
+        justify-content: flex-start;
+    }
+
+    .reg-act {
+        margin-left: 5rem !important;
+    }
+
+    .logger-buttons, .log-data, .logs-types {
+        font-size: 1.2rem !important;
+    }
+
+    .log-cards {
+        margin: 1rem 0.1rem !important;
+    }
+
+    .logger-buttons {
+        padding: 0.1rem !important;
+    }
+
+    #h2-settings {
+        margin-left: 22%;
+    }
+
+    .us-inputs {
+        margin-left: 11%;
+    }
+
+    #us-buttons-div {
+        margin-left: 12%;
+    }
+
+    .p-about{
+        font-size: 1.4rem;
+        margin: 1rem 10%;
+    }
+
+    #p-nsfw-warning {
+        width: 90%;
+        font-size: 2rem;
+    }
+
+    #h1-nsfw {
+        font-size: 3.2rem;
+    }
+
+    .buttons-nsfw {
+        font-size: 1.5rem;
+    }
+
+    .label-forgot-password {
+        margin-left: 25%;
+    }
+}
+
+@media screen and (max-width: 450px){
+
+    #add-a-comment {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .post-report-buttons, .post-remove-buttons, .comment-report-buttons-other, .comment-report-buttons, .comment-remove-buttons, .post-restore-buttons {
+        font-size: 1.2rem;
+    }
+
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 1.2rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 1.2rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id {
+        font-size: 1.2rem;
+    }
+
+    #nav-bar a {
+        font-size: 1.6rem;
+    }
+
+    .option {
+        max-width: 100%;
+    }
+    
+    .options-label {
+        margin-left: 1.5rem;
+    }
+
+    #post-verified-space{
+        margin-left: 90px;
+    }
+
+    #post-spaceedge-space{
+        margin-left: 80px;
+    }
+
+    #post-chadmin-mel-space{
+        margin-left: 75px;
+    }
+
+    .comment-chadmin-mel-space{
+        width: 40px;
+    }
+    
+    .comment-spaceedge-space{
+        width: 45px;
+    }
+    
+    .comment-verified-space{
+        width: 50px;
+    }
+
+    .op-badges, .op-badges-mini{
+        height: 1.5rem;
+        margin-top: 4px !important;
+    }
+
+    .label-forgot-password, .input-forgot-password, #input-forgot-password-email {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 420px){
+    .options-label {
+        margin-left: 0.8rem;
+    }
+
+    #h2-settings {
+        margin-left: 18%;
+    }
+
+    .us-inputs {
+        margin-left: 6%;
+    }
+
+    #us-buttons-div {
+        margin-left: 7%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    #direct-link-p, #p-copy-direct-link {
+        font-size: 1.1rem;
+    }
+
+    #direct-link-h3 {
+        font-size: 1.1rem;
+    }
+
+    #manifesto-by-user, .comment-date-badge, .comment-date, .comment-id, .comment-name, .comment-name-badge, .comment-author-id {
+        font-size: 1.1rem;
+    }
+
+    .textarea-report-comment {
+        width: 85%;
+    }
+
+    .logger-buttons, .log-data, .logs-types {
+        font-size: 1rem !important;
+    }
+
+    .p-about{
+        margin: 1rem 5%;
+    }
+
+    .button-report-queue {
+        margin-top: 10px !important;
+    }
+
+    .report-queue-data, .report-queue-types {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .reg-email input, .reg-com input {
+        width: 13rem;
+    }
+
+    #nav-bar a {
+        font-size: 1.4rem !important;
+    }
+}
+
+@media screen and (max-width: 300px){
+    
+
+    #image-navigation {
+        width: 15rem;
+    }
+
+    #next-anchor {
+        margin-left: 5rem;
+    }
+
+    .reg-email input, .reg-com input {
+        width: 11rem;
+    }
+}
