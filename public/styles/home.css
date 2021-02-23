@@ -1,0 +1,21 @@
+@media screen and (min-width: 768px){
+    html {
+        background-image: url('/assets/background-image.png') !important;
+        background-position-y: 126px !important;
+    }
+
+    #home {
+        border: 3px solid black !important;
+        padding: 20px !important;
+        background: gray !important;
+        min-width: 500px !important;
+        width: max-content !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media screen and (max-width: 1051px){
+    html {
+        background-position-y: 0px !important;
+    }
+}
